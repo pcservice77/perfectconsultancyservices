@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Mountain, Twitter, Linkedin, Facebook } from 'lucide-react';
+import ClientOnly from '@/components/client-only';
 
 export default function Footer() {
   return (
@@ -56,7 +57,9 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm">
-          <p>&copy; {new Date().getFullYear()} Consultant Connect. All rights reserved.</p>
+          <ClientOnly>
+            <p>&copy; {new Date().getFullYear()} Consultant Connect. All rights reserved.</p>
+          </ClientOnly>
         </div>
       </div>
     </footer>
