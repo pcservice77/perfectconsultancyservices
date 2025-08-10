@@ -1,21 +1,31 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MapPin, Briefcase, IndianRupee } from 'lucide-react';
-
-interface Job {
-  title: string;
-  location: string;
-  type: string;
-  salary: string;
-}
-
-const jobs: Job[] = [
-  { title: 'Senior Tax Consultant', location: 'Mumbai, India', type: 'Full-time', salary: '₹12,00,000 - ₹18,00,000 PA' },
-  { title: 'Audit Assistant', location: 'Delhi, India', type: 'Full-time', salary: '₹4,00,000 - ₹6,00,000 PA' },
-  { title: 'Junior Accountant', location: 'Remote', type: 'Part-time', salary: 'Competitive' },
-];
+import { getJobs } from '@/services/jobs';
+import type { Job } from '@/lib/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function JobsSection() {
+    const [jobs, setJobs] = useState<Job[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchJobs = async () => {
+            try {
+                const fetchedJobs = await getJobs();
+                setJobs(fetchedJobs);
+            } catch (error) {
+                console.error("Failed to fetch jobs", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchJobs();
+    }, []);
+
   return (
     <section id="jobs" className="py-12 md:py-24 bg-secondary">
       <div className="container mx-auto px-4 md:px-6">
@@ -26,8 +36,27 @@ export default function JobsSection() {
           </p>
         </div>
         <div className="space-y-6">
-          {jobs.map((job) => (
-            <Card key={job.title} className="transition-shadow duration-300 hover:shadow-lg">
+          {loading ? (
+             Array.from({ length: 3 }).map((_, index) => (
+                <Card key={index}>
+                    <CardHeader>
+                         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                            <Skeleton className="h-6 w-1/2" />
+                            <Skeleton className="h-10 w-24 mt-4 md:mt-0" />
+                        </div>
+                         <CardDescription className="pt-2">
+                             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground/70">
+                                <Skeleton className="h-4 w-24" />
+                                <Skeleton className="h-4 w-32" />
+                                <Skeleton className="h-4 w-40" />
+                            </div>
+                        </CardDescription>
+                    </CardHeader>
+                </Card>
+             ))
+          ) : (
+          jobs.map((job) => (
+            <Card key={job.id} className="transition-shadow duration-300 hover:shadow-lg">
               <CardHeader>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                   <CardTitle className="font-headline text-xl text-primary">{job.title}</CardTitle>
@@ -42,7 +71,7 @@ export default function JobsSection() {
                 </CardDescription>
               </CardHeader>
             </Card>
-          ))}
+          )))}
         </div>
          <div className="mt-12 text-center">
             <Button variant="outline">View All Openings</Button>
