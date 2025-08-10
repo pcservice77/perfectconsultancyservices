@@ -32,13 +32,13 @@ export default function DashboardLayout({
     setIsClient(true);
     const token = localStorage.getItem('admin-auth-token');
     if (!token) {
-      router.replace('/admin/login');
+      router.replace('/admin');
     }
   }, [router]);
 
   const handleLogout = () => {
     localStorage.removeItem('admin-auth-token');
-    router.replace('/admin/login');
+    router.replace('/admin');
   };
   
   const isActive = (path: string) => {
@@ -70,7 +70,7 @@ export default function DashboardLayout({
             </SidebarMenuItem>
              <SidebarMenuItem>
               <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/services')} tooltip="Services">
-                <Link href="#">
+                <Link href="/admin/dashboard/services">
                   <FileText />
                   <span>Services</span>
                 </Link>
@@ -78,7 +78,7 @@ export default function DashboardLayout({
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/jobs')} tooltip="Jobs">
-                <Link href="#">
+                <Link href="/admin/dashboard/jobs">
                   <Briefcase />
                   <span>Jobs</span>
                 </Link>
@@ -86,7 +86,7 @@ export default function DashboardLayout({
             </SidebarMenuItem>
              <SidebarMenuItem>
               <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/tax-updates')} tooltip="Tax Updates">
-                <Link href="#">
+                <Link href="/admin/dashboard/tax-updates">
                   <Newspaper />
                   <span>Tax Updates</span>
                 </Link>
