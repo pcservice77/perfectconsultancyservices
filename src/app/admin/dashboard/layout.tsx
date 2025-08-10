@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   SidebarProvider,
   Sidebar,
@@ -26,15 +26,6 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    const token = localStorage.getItem('admin-auth-token');
-    if (!token) {
-      router.replace('/admin');
-    }
-  }, [router]);
 
   const handleLogout = () => {
     localStorage.removeItem('admin-auth-token');
@@ -43,10 +34,6 @@ export default function DashboardLayout({
   
   const isActive = (path: string) => {
     return pathname === path;
-  }
-
-  if (!isClient) {
-    return null; // Or a loading spinner
   }
 
   return (
