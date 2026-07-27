@@ -1,35 +1,21 @@
+
 "use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 
 export default function DashboardPage() {
-  const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    const token = localStorage.getItem('admin-auth-token');
-    if (!token) {
-      router.replace('/admin');
-    }
-  }, [router]);
-
-  if (!isClient) {
-    return null; // Or a loading spinner
-  }
-
   return (
     <div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle>Welcome, Admin!</CardTitle>
-            <CardDescription>Here's an overview of your site.</CardDescription>
+            <CardTitle>Welcome to Perfect Consultancy Services Admin</CardTitle>
+            <CardDescription>Manage your services, team, and enquiries from here.</CardDescription>
           </CardHeader>
           <CardContent>
-            <p>You can manage your site's content from the sidebar navigation.</p>
+            <p className="text-muted-foreground">
+              Use the sidebar to navigate between different management sections. Any changes you make here will be updated in real-time on your public website.
+            </p>
           </CardContent>
         </Card>
       </div>

@@ -4,6 +4,10 @@ import { getFirestore, Firestore } from 'firebase/firestore';
 import { getAuth, Auth } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
+/**
+ * Trigger rules deployment: Updated database schema in backend.json.
+ */
+
 let app: FirebaseApp;
 let db: Firestore;
 let auth: Auth;

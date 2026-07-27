@@ -45,8 +45,44 @@
       "type": "object",
       "properties": {
         "email": { "type": "string" },
-        "isAdmin": { "type": "boolean" }
+        "isAdmin": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
       }
+    },
+    "Job": {
+      "title": "Job Posting",
+      "description": "A career opportunity at the consultancy.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "location": { "type": "string" },
+        "type": { "type": "string" },
+        "salary": { "type": "string" }
+      },
+      "required": ["title", "location", "type", "salary"]
+    },
+    "TaxUpdate": {
+      "title": "Tax Update",
+      "description": "Latest news regarding tax laws and compliance.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["title", "summary", "content"]
+    },
+    "Subscription": {
+      "title": "Newsletter Subscription",
+      "description": "User email for the newsletter.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "subscribedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email"]
     }
   },
   "auth": {
@@ -68,6 +104,18 @@
     "/users/{userId}": {
       "schema": "#/backend/entities/UserProfile",
       "description": "User profiles and permissions."
+    },
+    "/jobs/{jobId}": {
+      "schema": "#/backend/entities/Job",
+      "description": "Job openings."
+    },
+    "/taxUpdates/{taxUpdateId}": {
+      "schema": "#/backend/entities/TaxUpdate",
+      "description": "Tax news articles."
+    },
+    "/subscriptions/{subscriptionId}": {
+      "schema": "#/backend/entities/Subscription",
+      "description": "Newsletter subscribers."
     }
   }
 }
