@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="flex flex-col items-start gap-4">
             <Link href="/" className="flex items-center gap-2 font-bold text-xl">
               <Mountain className="h-6 w-6 text-primary" />
-              <span className="text-primary">Consultant Connect</span>
+              <span className="text-primary">PERFECT CONSULTANCY SERVICES</span>
             </Link>
             <p className="text-sm">
               Professional Tax, Accounting & Business Compliance.
@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t pt-4 text-center text-sm">
           <ClientOnly>
-            <p>&copy; {new Date().getFullYear()} Consultant Connect. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} PERFECT CONSULTANCY SERVICES. All rights reserved.</p>
           </ClientOnly>
         </div>
       </div>

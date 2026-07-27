@@ -5,7 +5,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 
 export const metadata: Metadata = {
-  title: 'Consultant Connect',
+  title: 'PERFECT CONSULTANCY SERVICES',
   description: 'Professional Tax, Accounting & Business Compliance. Fast, Accurate, Trusted.',
 };
 

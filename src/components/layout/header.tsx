@@ -29,7 +29,7 @@ export default function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-lg">
           <Mountain className="h-6 w-6 text-primary" />
-          <span className="text-primary">Consultant Connect</span>
+          <span className="text-primary">PERFECT CONSULTANCY SERVICES</span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
@@ -51,7 +51,7 @@ export default function Header() {
               <div className="grid gap-4 py-6">
                 <Link href="/" className="flex items-center gap-2 font-bold text-lg">
                   <Mountain className="h-6 w-6 text-primary" />
-                  <span className="text-primary">Consultant Connect</span>
+                  <span className="text-primary">PERFECT CONSULTANCY SERVICES</span>
                 </Link>
                 <nav className="grid gap-2">
                   {navLinks.map((link) => (

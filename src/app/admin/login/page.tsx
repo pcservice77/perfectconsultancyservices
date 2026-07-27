@@ -38,7 +38,7 @@ export default function LoginPage() {
         <CardHeader className="text-center">
            <div className="flex justify-center items-center gap-2 mb-4">
              <Mountain className="h-8 w-8 text-primary" />
-             <span className="text-2xl font-bold text-primary">Consultant Connect</span>
+             <span className="text-2xl font-bold text-primary">PERFECT CONSULTANCY SERVICES</span>
            </div>
           <CardTitle className="text-2xl">Admin Login</CardTitle>
           <CardDescription>Enter your credentials to access the dashboard.</CardDescription>
