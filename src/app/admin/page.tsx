@@ -9,16 +9,20 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Mountain, Loader2 } from 'lucide-react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useAuth, useUser } from '@/firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { useAuth, useUser, useFirestore } from '@/firebase';
 
-export default function AdminLoginPage() {
+export default function AuthPage() {
+  const [isRegistering, setIsRegistering] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signingIn, setSigningIn] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
   const auth = useAuth();
+  const db = useFirestore();
   const { user, loading: userLoading } = useUser();
 
   useEffect(() => {
@@ -27,20 +31,45 @@ export default function AdminLoginPage() {
     }
   }, [user, userLoading, router]);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSigningIn(true);
+    setLoading(true);
+
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      // Wait for useUser to detect the profile and check isAdmin
-      // The useEffect above will handle redirection
+      if (isRegistering) {
+        if (password !== confirmPassword) {
+          throw new Error("Passwords do not match");
+        }
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const newUser = userCredential.user;
+
+        // Create user profile in Firestore
+        await setDoc(doc(db, 'users', newUser.uid), {
+          email: email,
+          isAdmin: false,
+          createdAt: new Date().toISOString()
+        });
+
+        toast({
+          title: "Registration Successful",
+          description: "Your account has been created. If you are an admin, please contact support to enable dashboard access.",
+        });
+        setIsRegistering(false);
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+        toast({
+          title: "Login Successful",
+          description: "Welcome back!",
+        });
+      }
     } catch (error: any) {
-      setSigningIn(false);
       toast({
         variant: "destructive",
-        title: "Login Failed",
-        description: error.message || "Invalid credentials.",
+        title: isRegistering ? "Registration Failed" : "Login Failed",
+        description: error.message || "An error occurred. Please try again.",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,24 +82,28 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-secondary">
+    <div className="flex min-h-screen items-center justify-center bg-secondary p-4">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
            <div className="flex justify-center items-center gap-2 mb-4">
              <Mountain className="h-8 w-8 text-primary" />
-             <span className="text-2xl font-bold text-primary">PERFECT CONSULTANCY SERVICES</span>
+             <span className="text-2xl font-bold text-primary">PCS</span>
            </div>
-          <CardTitle className="text-2xl">Admin Login</CardTitle>
-          <CardDescription>Secure access for authorized administrators only.</CardDescription>
+          <CardTitle className="text-2xl">{isRegistering ? 'Create Account' : 'Client Login'}</CardTitle>
+          <CardDescription>
+            {isRegistering 
+              ? 'Join Perfect Consultancy Services today.' 
+              : 'Secure access to your client area.'}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="pcservice.77@gmail.com"
+                placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -87,10 +120,34 @@ export default function AdminLoginPage() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full" disabled={signingIn}>
-              {signingIn ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-              Login
+            {isRegistering && (
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="********"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              {isRegistering ? 'Register' : 'Login'}
             </Button>
+            <div className="text-center text-sm">
+              <button
+                type="button"
+                onClick={() => setIsRegistering(!isRegistering)}
+                className="text-primary hover:underline"
+              >
+                {isRegistering 
+                  ? 'Already have an account? Login' 
+                  : "Don't have an account? Register"}
+              </button>
+            </div>
           </form>
         </CardContent>
       </Card>
