@@ -1,0 +1,28 @@
+
+{
+  "staff": [
+    {
+      "id": "founder",
+      "url": "https://picsum.photos/seed/founder/400/400",
+      "width": 400,
+      "height": 400,
+      "aiHint": "professional man"
+    },
+    {
+      "id": "co-founder",
+      "url": "https://picsum.photos/seed/co-founder/400/400",
+      "width": 400,
+      "height": 400,
+      "aiHint": "professional woman"
+    }
+  ],
+  "services": [
+    {
+      "id": "tax",
+      "url": "https://picsum.photos/seed/tax/600/400",
+      "width": 600,
+      "height": 400,
+      "aiHint": "finance accounting"
+    }
+  ]
+}

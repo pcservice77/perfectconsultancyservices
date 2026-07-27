@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from 'react-hook-form';
@@ -10,8 +11,8 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { addContactMessage } from '@/services/contacts';
-import { addSubscription } from '@/services/subscriptions';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
 
 const contactSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -26,6 +27,7 @@ const subscriptionSchema = z.object({
 
 export default function ContactSection() {
     const { toast } = useToast();
+    const db = useFirestore();
 
     const contactForm = useForm<z.infer<typeof contactSchema>>({
         resolver: zodResolver(contactSchema),
@@ -39,7 +41,10 @@ export default function ContactSection() {
 
     const onContactSubmit = async (values: z.infer<typeof contactSchema>) => {
         try {
-            await addContactMessage(values);
+            await addDoc(collection(db, 'enquiries'), {
+                ...values,
+                createdAt: serverTimestamp()
+            });
             toast({ title: 'Message Sent!', description: "We'll get back to you soon." });
             contactForm.reset();
         } catch (error) {
@@ -49,8 +54,11 @@ export default function ContactSection() {
     
     const onSubscriptionSubmit = async (values: z.infer<typeof subscriptionSchema>) => {
         try {
-            await addSubscription(values);
-            toast({ title: 'Subscribed!', description: "You're on the list." });
+            await addDoc(collection(db, 'subscriptions'), {
+                ...values,
+                subscribedAt: serverTimestamp()
+            });
+            toast({ title: 'Subscribed!', description: "You're on the list forPCS updates." });
             subscriptionForm.reset();
         } catch (error) {
             toast({ variant: 'destructive', title: 'Error', description: 'Failed to subscribe.' });

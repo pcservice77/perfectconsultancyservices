@@ -1,0 +1,73 @@
+
+{
+  "entities": {
+    "Service": {
+      "title": "Service",
+      "description": "A service offered by the company.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["title", "description", "icon"]
+    },
+    "StaffMember": {
+      "title": "Staff Member",
+      "description": "Founder, Co-Founder, or regular staff details.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["Founder", "Co-Founder", "Staff"] },
+        "email": { "type": "string", "format": "email" },
+        "contact": { "type": "string" },
+        "profession": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["name", "role", "email"]
+    },
+    "Enquiry": {
+      "title": "Enquiry",
+      "description": "A contact form submission from the website.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "message": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "message"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Stored user details including admin status.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "isAdmin": { "type": "boolean" }
+      }
+    }
+  },
+  "auth": {
+    "providers": ["password"]
+  },
+  "firestore": {
+    "/services/{serviceId}": {
+      "schema": "#/backend/entities/Service",
+      "description": "List of consultancy services."
+    },
+    "/staff/{staffId}": {
+      "schema": "#/backend/entities/StaffMember",
+      "description": "Team members and founders."
+    },
+    "/enquiries/{enquiryId}": {
+      "schema": "#/backend/entities/Enquiry",
+      "description": "Customer enquiries."
+    },
+    "/users/{userId}": {
+      "schema": "#/backend/entities/UserProfile",
+      "description": "User profiles and permissions."
+    }
+  }
+}

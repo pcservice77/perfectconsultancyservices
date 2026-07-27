@@ -1,8 +1,9 @@
+
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import {
   SidebarProvider,
   Sidebar,
@@ -15,9 +16,20 @@ import {
   SidebarMenuButton,
   SidebarFooter,
 } from '@/components/ui/sidebar';
-import { LayoutDashboard, LogOut, Mountain, Briefcase, FileText, Newspaper } from 'lucide-react';
+import { 
+  LayoutDashboard, 
+  LogOut, 
+  Mountain, 
+  Briefcase, 
+  FileText, 
+  Newspaper, 
+  Users, 
+  MessageSquare,
+  Loader2
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { usePathname } from 'next/navigation';
+import { useUser, useAuth } from '@/firebase';
+import { signOut } from 'firebase/auth';
 
 export default function DashboardLayout({
   children,
@@ -26,32 +38,46 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const { user, loading } = useUser();
+  const auth = useAuth();
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin-auth-token');
+  useEffect(() => {
+    if (!loading && (!user || !user.isAdmin)) {
+      router.replace('/admin');
+    }
+  }, [user, loading, router]);
+
+  const handleLogout = async () => {
+    await signOut(auth);
     router.replace('/admin');
   };
   
-  const isActive = (path: string) => {
-    return pathname === path;
+  const isActive = (path: string) => pathname === path;
+
+  if (loading || !user?.isAdmin) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
   }
 
   return (
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 p-2">
             <Mountain className="h-6 w-6 text-sidebar-primary" />
-            <span className="text-lg font-semibold text-sidebar-primary">Admin Panel</span>
+            <span className="text-sm font-semibold text-sidebar-primary truncate">PCS Admin</span>
           </div>
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActive('/admin/dashboard')} tooltip="Dashboard">
+              <SidebarMenuButton asChild isActive={isActive('/admin/dashboard')} tooltip="Overview">
                 <Link href="/admin/dashboard">
                   <LayoutDashboard />
-                  <span>Dashboard</span>
+                  <span>Overview</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -63,11 +89,27 @@ export default function DashboardLayout({
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/staff')} tooltip="Staff & Founders">
+                <Link href="/admin/dashboard/staff">
+                  <Users />
+                  <span>Team Members</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/enquiries')} tooltip="Enquiries">
+                <Link href="/admin/dashboard/enquiries">
+                  <MessageSquare />
+                  <span>Enquiries</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/jobs')} tooltip="Jobs">
                 <Link href="/admin/dashboard/jobs">
                   <Briefcase />
-                  <span>Jobs</span>
+                  <span>Careers</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -93,7 +135,7 @@ export default function DashboardLayout({
             <SidebarTrigger className="md:hidden"/>
             <h1 className="text-lg font-semibold">Dashboard</h1>
         </header>
-        <main className="flex-1 p-4 sm:p-6">
+        <main className="flex-1 p-4 sm:p-6 overflow-auto">
             {children}
         </main>
       </SidebarInset>
