@@ -5,6 +5,7 @@ import React, { createContext, useContext } from 'react';
 import { FirebaseApp } from 'firebase/app';
 import { Firestore } from 'firebase/firestore';
 import { Auth } from 'firebase/auth';
+import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 
 interface FirebaseContextType {
   app: FirebaseApp;
@@ -27,6 +28,7 @@ export function FirebaseProvider({
 }) {
   return (
     <FirebaseContext.Provider value={{ app, db, auth }}>
+      <FirebaseErrorListener />
       {children}
     </FirebaseContext.Provider>
   );
@@ -35,9 +37,6 @@ export function FirebaseProvider({
 export function useFirebase() {
   const context = useContext(FirebaseContext);
   if (!context) {
-    // Fallback if hook is called outside provider - try to initialize directly
-    // but warning: this might lead to inconsistent state if not careful.
-    // In this app, we ensure it's wrapped in RootLayout.
     throw new Error('useFirebase must be used within FirebaseProvider');
   }
   return context;
