@@ -5,7 +5,7 @@ import { getAuth, Auth } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
 /**
- * Trigger rules deployment: Updated database schema in backend.json.
+ * Trigger rules deployment: Force redeploy to apply public read permissions for CMS collections.
  */
 
 let app: FirebaseApp;

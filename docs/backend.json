@@ -3,7 +3,7 @@
   "entities": {
     "Service": {
       "title": "Service",
-      "description": "A service offered by the company.",
+      "description": "A consultancy service. Publicly readable, admin manageable.",
       "type": "object",
       "properties": {
         "title": { "type": "string" },
@@ -15,7 +15,7 @@
     },
     "StaffMember": {
       "title": "Staff Member",
-      "description": "Founder, Co-Founder, or regular staff details.",
+      "description": "Team leadership and staff. Publicly readable, admin manageable.",
       "type": "object",
       "properties": {
         "name": { "type": "string" },
@@ -29,7 +29,7 @@
     },
     "Enquiry": {
       "title": "Enquiry",
-      "description": "A contact form submission from the website.",
+      "description": "Customer contact submissions. Publicly creatable, admin readable.",
       "type": "object",
       "properties": {
         "name": { "type": "string" },
@@ -41,7 +41,7 @@
     },
     "UserProfile": {
       "title": "User Profile",
-      "description": "Stored user details including admin status.",
+      "description": "User account data and roles.",
       "type": "object",
       "properties": {
         "email": { "type": "string" },
@@ -51,7 +51,7 @@
     },
     "Job": {
       "title": "Job Posting",
-      "description": "A career opportunity at the consultancy.",
+      "description": "Careers at PCS. Publicly readable, admin manageable.",
       "type": "object",
       "properties": {
         "title": { "type": "string" },
@@ -63,7 +63,7 @@
     },
     "TaxUpdate": {
       "title": "Tax Update",
-      "description": "Latest news regarding tax laws and compliance.",
+      "description": "Industry news and summaries. Publicly readable, admin manageable.",
       "type": "object",
       "properties": {
         "title": { "type": "string" },
@@ -76,7 +76,7 @@
     },
     "Subscription": {
       "title": "Newsletter Subscription",
-      "description": "User email for the newsletter.",
+      "description": "Newsletter signups. Publicly creatable, admin readable.",
       "type": "object",
       "properties": {
         "email": { "type": "string", "format": "email" },
