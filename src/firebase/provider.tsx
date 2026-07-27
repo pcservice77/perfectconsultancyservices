@@ -34,7 +34,12 @@ export function FirebaseProvider({
 
 export function useFirebase() {
   const context = useContext(FirebaseContext);
-  if (!context) throw new Error('useFirebase must be used within FirebaseProvider');
+  if (!context) {
+    // Fallback if hook is called outside provider - try to initialize directly
+    // but warning: this might lead to inconsistent state if not careful.
+    // In this app, we ensure it's wrapped in RootLayout.
+    throw new Error('useFirebase must be used within FirebaseProvider');
+  }
   return context;
 }
 
