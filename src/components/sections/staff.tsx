@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useFirestore, useCollection } from '@/firebase';
 import { collection, query, orderBy } from 'firebase/firestore';
-import { Loader2, Mail, Phone } from 'lucide-react';
+import { Loader2, Mail, Phone, User } from 'lucide-react';
 
 export default function StaffSection() {
   const db = useFirestore();
@@ -31,8 +31,12 @@ export default function StaffSection() {
             <Card key={member.id} className="overflow-hidden transition-all hover:shadow-xl text-center">
               <CardHeader className="flex flex-col items-center">
                 <Avatar className="h-24 w-24 border-4 border-background shadow-lg mb-4">
-                  <AvatarImage src={member.imageUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${member.name}`} alt={member.name} />
-                  <AvatarFallback>{member.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                  {member.imageUrl ? (
+                    <AvatarImage src={member.imageUrl} alt={member.name} className="object-cover" />
+                  ) : (
+                    <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${member.name}`} alt={member.name} />
+                  )}
+                  <AvatarFallback><User className="h-10 w-10 text-muted-foreground" /></AvatarFallback>
                 </Avatar>
                 <div>
                   <CardTitle className="text-xl font-bold text-primary">{member.name}</CardTitle>

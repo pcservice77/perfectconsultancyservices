@@ -1,8 +1,20 @@
+
 export interface Service {
   id?: string;
   icon: string;
   title: string;
   description: string;
+  imageUrl?: string;
+}
+
+export interface StaffMember {
+    id?: string;
+    name: string;
+    role: 'Founder' | 'Co-Founder' | 'Staff';
+    email: string;
+    contact?: string;
+    profession: string;
+    imageUrl?: string;
 }
 
 export interface Job {

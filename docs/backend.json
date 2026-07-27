@@ -9,9 +9,9 @@
         "title": { "type": "string" },
         "description": { "type": "string" },
         "icon": { "type": "string" },
-        "imageUrl": { "type": "string" }
+        "imageUrl": { "type": "string", "description": "Base64 encoded image or URL for custom icon" }
       },
-      "required": ["title", "description", "icon"]
+      "required": ["title", "description"]
     },
     "StaffMember": {
       "title": "Staff Member",
@@ -23,7 +23,7 @@
         "email": { "type": "string", "format": "email" },
         "contact": { "type": "string" },
         "profession": { "type": "string" },
-        "imageUrl": { "type": "string" }
+        "imageUrl": { "type": "string", "description": "Base64 encoded photo of the staff member" }
       },
       "required": ["name", "role", "email"]
     },

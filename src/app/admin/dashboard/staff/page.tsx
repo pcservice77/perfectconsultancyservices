@@ -23,13 +23,14 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { collection, addDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useFirestore, useCollection } from '@/firebase';
-import { Edit, Trash2, Users, Loader2 } from 'lucide-react';
+import { Edit, Trash2, Users, Loader2, Upload } from 'lucide-react';
+import Image from 'next/image';
 
 const staffSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   role: z.enum(['Founder', 'Co-Founder', 'Staff']),
   email: z.string().email('Invalid email'),
-  contact: z.string().min(10, 'Invalid contact number'),
+  contact: z.string().optional(),
   profession: z.string().min(1, 'Profession is required'),
   imageUrl: z.string().optional(),
 });
@@ -57,14 +58,40 @@ export default function ManageStaffPage() {
     },
   });
 
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 1048576) {
+        toast({ variant: 'destructive', title: 'File too large', description: 'Please upload an image smaller than 1MB.' });
+        return;
+      }
+      try {
+        const base64 = await fileToBase64(file);
+        form.setValue('imageUrl', base64);
+        toast({ title: 'Photo uploaded successfully' });
+      } catch (error) {
+        toast({ variant: 'destructive', title: 'Upload failed' });
+      }
+    }
+  };
+
   const onSubmit = async (values: StaffFormValues) => {
     try {
       if (editingStaff) {
         const docRef = doc(db, 'staff', editingStaff.id);
-        await updateDoc(docRef, values);
+        await updateDoc(docRef, values as any);
         toast({ title: 'Staff updated successfully' });
       } else {
-        await addDoc(staffRef, values);
+        await addDoc(staffRef, values as any);
         toast({ title: 'Staff added successfully' });
       }
       setIsDialogOpen(false);
@@ -110,23 +137,38 @@ export default function ManageStaffPage() {
           <DialogTrigger asChild>
             <Button><Users className="mr-2 h-4 w-4" /> Add Member</Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>{editingStaff ? 'Edit Member' : 'Add New Team Member'}</DialogTitle>
             </DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
+                <div className="flex flex-col gap-4">
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl><Input {...field} /></FormControl>
-                      <FormMessage />
+                        <FormLabel>Profile Photo (Optional)</FormLabel>
+                        <FormControl>
+                            <Input type="file" accept="image/*" onChange={handleImageUpload} />
+                        </FormControl>
+                        {form.watch('imageUrl') && (
+                            <div className="mt-2 relative h-20 w-20 border rounded-full overflow-hidden mx-auto">
+                                <Image src={form.watch('imageUrl')!} alt="Avatar" fill className="object-cover" />
+                            </div>
+                        )}
                     </FormItem>
-                  )}
-                />
+
+                    <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl><Input {...field} /></FormControl>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                    />
+                </div>
+                
                 <FormField
                   control={form.control}
                   name="role"
@@ -166,7 +208,7 @@ export default function ManageStaffPage() {
                     name="contact"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Contact</FormLabel>
+                        <FormLabel>Contact (Optional)</FormLabel>
                         <FormControl><Input {...field} /></FormControl>
                         <FormMessage />
                       </FormItem>
@@ -197,6 +239,7 @@ export default function ManageStaffPage() {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>Photo</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Role</TableHead>
               <TableHead>Profession</TableHead>
@@ -207,10 +250,21 @@ export default function ManageStaffPage() {
           <TableBody>
             {staffList.map((staff) => (
               <TableRow key={staff.id}>
+                <TableCell>
+                    {staff.imageUrl ? (
+                        <div className="relative h-10 w-10 overflow-hidden rounded-full border">
+                            <Image src={staff.imageUrl} alt={staff.name} fill className="object-cover" />
+                        </div>
+                    ) : (
+                        <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center">
+                            <Users className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                    )}
+                </TableCell>
                 <TableCell className="font-medium">{staff.name}</TableCell>
                 <TableCell>{staff.role}</TableCell>
                 <TableCell>{staff.profession}</TableCell>
-                <TableCell>{staff.email}</TableCell>
+                <TableCell className="text-xs">{staff.email}</TableCell>
                 <TableCell className="flex gap-2">
                   <Button variant="ghost" size="icon" onClick={() => openEdit(staff)}><Edit className="h-4 w-4" /></Button>
                   <Button variant="ghost" size="icon" onClick={() => handleDelete(staff.id)}><Trash2 className="h-4 w-4 text-destructive" /></Button>

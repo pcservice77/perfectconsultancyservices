@@ -12,11 +12,13 @@ import {
   FileSignature, 
   BookOpen, 
   BrainCircuit,
-  Loader2
+  Loader2,
+  ImageIcon
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useFirestore, useCollection } from '@/firebase';
 import { collection, query, orderBy } from 'firebase/firestore';
+import Image from 'next/image';
 
 const iconComponents: { [key: string]: LucideIcon } = {
   FileText, Landmark, ClipboardCheck, Building, FileSignature, BookOpen, BrainCircuit
@@ -49,8 +51,19 @@ export default function ServicesSection() {
                 return(
                 <Card key={service.id} className="flex flex-col overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                 <CardHeader className="flex flex-row items-center gap-4">
-                    <div className="rounded-full bg-accent/10 p-3">
-                      <Icon className="h-8 w-8 text-accent" />
+                    <div className="rounded-full bg-accent/10 p-3 shrink-0 flex items-center justify-center h-14 w-14 overflow-hidden">
+                      {service.imageUrl ? (
+                        <div className="relative h-full w-full">
+                           <Image 
+                              src={service.imageUrl} 
+                              alt={service.title} 
+                              fill 
+                              className="object-contain p-1"
+                            />
+                        </div>
+                      ) : (
+                        <Icon className="h-8 w-8 text-accent" />
+                      )}
                     </div>
                     <CardTitle className="font-headline text-xl text-primary">{service.title}</CardTitle>
                 </CardHeader>
