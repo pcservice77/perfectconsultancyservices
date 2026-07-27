@@ -91,31 +91,31 @@
   "firestore": {
     "/services/{serviceId}": {
       "schema": "#/backend/entities/Service",
-      "description": "List of consultancy services. Accessible to the public."
+      "description": "Public READ access, Admin WRITE access."
     },
     "/staff/{staffId}": {
       "schema": "#/backend/entities/StaffMember",
-      "description": "Team members and founders. Accessible to the public."
+      "description": "Public READ access, Admin WRITE access."
     },
     "/enquiries/{enquiryId}": {
       "schema": "#/backend/entities/Enquiry",
-      "description": "Customer enquiries. Created by public, read by admins."
+      "description": "Public CREATE access, Admin READ access."
     },
     "/users/{userId}": {
       "schema": "#/backend/entities/UserProfile",
-      "description": "User profiles and permissions. Read by self, managed by admins."
+      "description": "User READ access for own document, Admin full access."
     },
     "/jobs/{jobId}": {
       "schema": "#/backend/entities/Job",
-      "description": "Job openings. Accessible to the public."
+      "description": "Public READ access, Admin WRITE access."
     },
     "/taxUpdates/{taxUpdateId}": {
       "schema": "#/backend/entities/TaxUpdate",
-      "description": "Tax news articles. Accessible to the public."
+      "description": "Public READ access, Admin WRITE access."
     },
     "/subscriptions/{subscriptionId}": {
       "schema": "#/backend/entities/Subscription",
-      "description": "Newsletter subscribers. Created by public, read by admins."
+      "description": "Public CREATE access, Admin READ access."
     }
   }
 }

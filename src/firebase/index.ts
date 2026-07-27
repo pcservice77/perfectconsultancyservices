@@ -6,6 +6,7 @@ import { firebaseConfig } from './config';
 
 /**
  * Trigger rules deployment: Force redeploy to apply public read permissions for CMS collections.
+ * Updated to handle explicit public READ for services, jobs, staff, and tax updates.
  */
 
 let app: FirebaseApp;
