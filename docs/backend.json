@@ -103,7 +103,7 @@
     },
     "/users/{userId}": {
       "schema": "#/backend/entities/UserProfile",
-      "description": "User READ access for own document, Admin full access."
+      "description": "User CREATE and READ/WRITE access for own document, Admin full access."
     },
     "/jobs/{jobId}": {
       "schema": "#/backend/entities/Job",

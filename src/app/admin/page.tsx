@@ -26,8 +26,12 @@ export default function AuthPage() {
   const { user, loading: userLoading } = useUser();
 
   useEffect(() => {
-    if (!userLoading && user?.isAdmin) {
-      router.push('/admin/dashboard');
+    if (!userLoading && user) {
+      if (user.isAdmin) {
+        router.push('/admin/dashboard');
+      } else {
+        router.push('/');
+      }
     }
   }, [user, userLoading, router]);
 
@@ -49,14 +53,19 @@ export default function AuthPage() {
 
         toast({
           title: "Registration Successful",
-          description: "Your account has been created. If you are an admin, please set your 'isAdmin' field to true in the Firestore Console.",
+          description: "Your account has been created. Redirecting to home...",
         });
+        router.push('/');
       } else {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const loggedUser = userCredential.user;
+        
         toast({
           title: "Login Successful",
           description: "Welcome back!",
         });
+        
+        // Redirection is handled by the useEffect
       }
     } catch (error: any) {
       toast({
@@ -83,7 +92,7 @@ export default function AuthPage() {
         <CardHeader className="text-center">
           <div className="flex justify-center items-center gap-2 mb-4">
             <Mountain className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold text-primary leading-tight">PERFECT CONSULTANCY SERVICES</span>
+            <span className="text-2xl font-bold text-primary leading-tight uppercase">Perfect Consultancy Services</span>
           </div>
           <CardTitle className="text-xl">Client & Admin Access</CardTitle>
           <CardDescription>
@@ -166,7 +175,7 @@ export default function AuthPage() {
                   {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : "Create Account"}
                 </Button>
                 <p className="text-xs text-center text-muted-foreground mt-2">
-                  After registering, please contact the administrator to enable Admin Dashboard access.
+                  After registering, your profile will be created automatically.
                 </p>
               </form>
             </TabsContent>

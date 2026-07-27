@@ -5,8 +5,8 @@ import { getAuth, Auth } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
 /**
- * Trigger rules deployment: Force redeploy to apply public read permissions for CMS collections.
- * Updated to handle explicit public READ for services, jobs, staff, and tax updates.
+ * Trigger rules deployment: Updated to ensure UserProfile has CREATE permissions for own doc.
+ * Added support for public READ of CMS collections.
  */
 
 let app: FirebaseApp;
@@ -19,7 +19,6 @@ export function initializeFirebase() {
     db = getFirestore(app);
     auth = getAuth(app);
   } else {
-    // Basic fallback for server-side execution to prevent crashes
     app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
     db = getFirestore(app);
     auth = getAuth(app);
