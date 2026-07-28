@@ -1,10 +1,11 @@
-
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import TaxAssistantChat from '@/components/tax-assistant-chat';
+import WhatsAppButton from '@/components/whatsapp-button';
 
 export const metadata: Metadata = {
   title: 'PERFECT CONSULTANCY SERVICES',
@@ -30,6 +31,8 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
+          <TaxAssistantChat />
+          <WhatsAppButton />
           <Toaster />
         </FirebaseClientProvider>
       </body>
