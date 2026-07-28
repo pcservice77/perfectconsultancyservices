@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview An AI Tax Assistant for Perfect Consultancy Services.
@@ -52,6 +51,9 @@ const taxAssistantFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('No output generated from AI assistant.');
+    }
+    return output;
   }
 );
