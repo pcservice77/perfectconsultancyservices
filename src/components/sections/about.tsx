@@ -1,11 +1,8 @@
 
-import Image from 'next/image';
-import { CheckCircle2, MapPin, Phone, Mail, Clock } from 'lucide-react';
-import images from '@/app/lib/placeholder-images.json';
+import { CheckCircle2, MapPin, Phone, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function AboutSection() {
-  const officeImage = images.about[0];
-
   return (
     <section id="about" className="py-12 md:py-24 bg-background">
       <div className="container mx-auto px-4 md:px-6">
@@ -73,22 +70,32 @@ export default function AboutSection() {
             </div>
           </div>
 
-          <div className="relative group">
+          <div className="relative group h-[400px] lg:h-[500px]">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-            <div className="relative overflow-hidden rounded-2xl border border-border shadow-2xl">
-              <Image
-                src={officeImage.url}
-                alt="PCS Office Ranchi"
-                width={officeImage.width}
-                height={officeImage.height}
-                className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-500"
-                data-ai-hint={officeImage.aiHint}
-              />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
-                <p className="text-white font-medium flex items-center gap-2">
-                  <MapPin className="h-4 w-4" />
-                  Roshpa Tower, Ranchi
-                </p>
+            <div className="relative h-full w-full overflow-hidden rounded-2xl border border-border shadow-2xl bg-muted">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3662.38459450346!2d85.32306737525313!3d23.370716878931135!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4e106969586fb%3A0x628006b53297a7e8!2sRoshpa%20Tower!5e0!3m2!1sen!2sin!4v1709194240000!5m2!1sen!2sin" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Roshpa Tower Location"
+                className="grayscale hover:grayscale-0 transition-all duration-500"
+              ></iframe>
+              <div className="absolute bottom-4 left-4 right-4">
+                 <Button asChild className="w-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90">
+                    <a 
+                      href="https://maps.app.goo.gl/hzE9hHufohWSZtSq8" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center justify-center gap-2"
+                    >
+                        <MapPin className="h-4 w-4" />
+                        Open in Google Maps
+                    </a>
+                 </Button>
               </div>
             </div>
           </div>
