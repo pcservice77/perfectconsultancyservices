@@ -1,5 +1,13 @@
-
 {
+  "hero": [
+    {
+      "id": "teamwork-office",
+      "url": "https://i.ibb.co/7N1kNv7D/Stock-Cake-Teamwork-in-Office-996932-medium.jpg",
+      "width": 1200,
+      "height": 800,
+      "aiHint": "office teamwork"
+    }
+  ],
   "staff": [
     {
       "id": "founder",
