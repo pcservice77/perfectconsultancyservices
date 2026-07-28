@@ -15,7 +15,7 @@ export default function HeroSection() {
           <div className="space-y-8 text-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-white/60 text-primary font-bold text-sm">
               <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
-              Trusted By 1500+
+              Trusted By 1500+ Businesses In Ranchi
             </div>
             
             <h1 className="font-headline text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[1.1]">
