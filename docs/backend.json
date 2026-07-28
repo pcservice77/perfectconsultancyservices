@@ -114,35 +114,35 @@
   "firestore": {
     "/services/{serviceId}": {
       "schema": "#/backend/entities/Service",
-      "description": "Public READ access. Admin WRITE access."
+      "description": "Public READ access for all. Admin (isAdmin == true) WRITE access."
     },
     "/staff/{staffId}": {
       "schema": "#/backend/entities/StaffMember",
-      "description": "Public READ access. Admin WRITE access."
+      "description": "Public READ access for all. Admin (isAdmin == true) WRITE access."
     },
     "/enquiries/{enquiryId}": {
       "schema": "#/backend/entities/Enquiry",
-      "description": "Public CREATE access. Admin READ (get/list) and DELETE access."
+      "description": "Public CREATE (unauthenticated) access allowed. Admin (isAdmin == true) READ and DELETE access."
     },
     "/users/{userId}": {
       "schema": "#/backend/entities/UserProfile",
-      "description": "User CREATE and READ/WRITE access for own document. Admin full access."
+      "description": "Authenticated user (uid == userId) has CREATE, READ, and WRITE access. Admin (isAdmin == true) full access."
     },
     "/jobs/{jobId}": {
       "schema": "#/backend/entities/Job",
-      "description": "Public READ access. Admin WRITE access."
+      "description": "Public READ access for all. Admin (isAdmin == true) WRITE access."
     },
     "/applications/{applicationId}": {
       "schema": "#/backend/entities/JobApplication",
-      "description": "Public CREATE access. Admin READ (get/list) and DELETE access."
+      "description": "Public CREATE (unauthenticated) access allowed. Admin (isAdmin == true) READ and DELETE access."
     },
     "/taxUpdates/{taxUpdateId}": {
       "schema": "#/backend/entities/TaxUpdate",
-      "description": "Public READ access. Admin WRITE access."
+      "description": "Public READ access for all. Admin (isAdmin == true) WRITE access."
     },
     "/subscriptions/{subscriptionId}": {
       "schema": "#/backend/entities/Subscription",
-      "description": "Public CREATE access. Admin READ (get/list) and DELETE access."
+      "description": "Public CREATE (unauthenticated) access allowed. Admin (isAdmin == true) READ and DELETE access."
     }
   }
 }

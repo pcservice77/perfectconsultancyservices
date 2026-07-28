@@ -5,8 +5,11 @@ import { getAuth, Auth } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
 /**
- * Trigger rules deployment: Ensuring explicit (get/list) READ permissions for Admin
- * on applications, enquiries, and subscriptions collections.
+ * TRIGGER RULES DEPLOYMENT (v2):
+ * 1. Public (unauthenticated) CREATE for: /enquiries, /subscriptions, /applications.
+ * 2. Authenticated user CREATE/READ/WRITE for: /users/{userId} (where userId matches auth.uid).
+ * 3. Public (unauthenticated) READ for: /services, /staff, /jobs, /taxUpdates.
+ * 4. Admin (isAdmin == true) full access (READ/WRITE/DELETE) to ALL collections.
  */
 
 let app: FirebaseApp;

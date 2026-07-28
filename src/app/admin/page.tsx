@@ -13,6 +13,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore } from '@/firebase';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 export default function AuthPage() {
   const [email, setEmail] = useState('');
@@ -45,11 +47,21 @@ export default function AuthPage() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const newUser = userCredential.user;
 
-        await setDoc(doc(db, 'users', newUser.uid), {
+        const profileData = {
           email: email,
           isAdmin: false,
           createdAt: new Date().toISOString()
-        });
+        };
+
+        setDoc(doc(db, 'users', newUser.uid), profileData)
+          .catch(async (err) => {
+            const permissionError = new FirestorePermissionError({
+              path: `users/${newUser.uid}`,
+              operation: 'create',
+              requestResourceData: profileData,
+            });
+            errorEmitter.emit('permission-error', permissionError);
+          });
 
         toast({
           title: "Registration Successful",
@@ -57,15 +69,11 @@ export default function AuthPage() {
         });
         router.push('/');
       } else {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const loggedUser = userCredential.user;
-        
+        await signInWithEmailAndPassword(auth, email, password);
         toast({
           title: "Login Successful",
           description: "Welcome back!",
         });
-        
-        // Redirection is handled by the useEffect
       }
     } catch (error: any) {
       toast({
