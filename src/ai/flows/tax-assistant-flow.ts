@@ -27,7 +27,7 @@ export async function askTaxAssistant(input: TaxAssistantInput): Promise<TaxAssi
 
 const prompt = ai.definePrompt({
   name: 'taxAssistantPrompt',
-  model: 'googleai/gemini-1.5-flash',
+  model: 'googleai/gemini-2.0-flash',
   input: {schema: TaxAssistantInputSchema},
   output: {schema: TaxAssistantOutputSchema},
   prompt: `You are the "PCS AI Assistant," an expert virtual consultant for "Perfect Consultancy Services" in Ranchi, India.
