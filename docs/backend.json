@@ -57,9 +57,29 @@
         "title": { "type": "string" },
         "location": { "type": "string" },
         "type": { "type": "string" },
-        "salary": { "type": "string" }
+        "salary": { "type": "string" },
+        "requirements": { "type": "string" },
+        "qualifications": { "type": "string" }
       },
       "required": ["title", "location", "type", "salary"]
+    },
+    "JobApplication": {
+      "title": "Job Application",
+      "description": "Job application submissions. Publicly creatable, admin readable.",
+      "type": "object",
+      "properties": {
+        "jobId": { "type": "string" },
+        "jobTitle": { "type": "string" },
+        "name": { "type": "string" },
+        "mobile": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "qualification": { "type": "string" },
+        "experience": { "type": "string" },
+        "address": { "type": "string" },
+        "otherInfo": { "type": "string" },
+        "appliedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["jobId", "name", "email", "mobile"]
     },
     "TaxUpdate": {
       "title": "Tax Update",
@@ -108,6 +128,10 @@
     "/jobs/{jobId}": {
       "schema": "#/backend/entities/Job",
       "description": "Public READ access, Admin WRITE access."
+    },
+    "/applications/{applicationId}": {
+      "schema": "#/backend/entities/JobApplication",
+      "description": "Public CREATE access, Admin READ access."
     },
     "/taxUpdates/{taxUpdateId}": {
       "schema": "#/backend/entities/TaxUpdate",

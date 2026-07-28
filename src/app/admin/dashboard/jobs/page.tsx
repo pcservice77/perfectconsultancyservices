@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -7,6 +8,7 @@ import * as z from 'zod';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import {
@@ -21,13 +23,15 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { getJobs, addJob, updateJob, deleteJob } from '@/services/jobs';
 import type { Job } from '@/lib/types';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2, Plus } from 'lucide-react';
 
 const jobSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   location: z.string().min(1, 'Location is required'),
   type: z.string().min(1, 'Job type is required'),
   salary: z.string().min(1, 'Salary is required'),
+  requirements: z.string().optional(),
+  qualifications: z.string().optional(),
 });
 
 export default function ManageJobsPage() {
@@ -43,6 +47,8 @@ export default function ManageJobsPage() {
       location: '',
       type: '',
       salary: '',
+      requirements: '',
+      qualifications: '',
     },
   });
 
@@ -59,6 +65,8 @@ export default function ManageJobsPage() {
         location: '',
         type: '',
         salary: '',
+        requirements: '',
+        qualifications: '',
       });
     }
   }, [editingJob, form]);
@@ -74,7 +82,7 @@ export default function ManageJobsPage() {
         await updateJob(editingJob.id!, values);
         toast({ title: 'Job updated successfully' });
       } else {
-        await addJob(values);
+        await addJob(values as Job);
         toast({ title: 'Job added successfully' });
       }
       fetchJobs();
@@ -86,6 +94,7 @@ export default function ManageJobsPage() {
   };
 
   const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this job posting?')) return;
     try {
       await deleteJob(id);
       toast({ title: 'Job deleted successfully' });
@@ -107,36 +116,86 @@ export default function ManageJobsPage() {
         location: '',
         type: '',
         salary: '',
+        requirements: '',
+        qualifications: '',
     });
     setIsDialogOpen(true);
   }
 
   return (
-    <div>
+    <div className="space-y-6">
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
             <div>
-                <CardTitle>Manage Jobs</CardTitle>
-                <CardDescription>Add, edit, or remove job postings.</CardDescription>
+                <CardTitle>Manage Job Postings</CardTitle>
+                <CardDescription>Add, edit, or remove career opportunities at PCS.</CardDescription>
             </div>
              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                    <Button onClick={openNewDialog}>Add New Job</Button>
+                    <Button onClick={openNewDialog}><Plus className="mr-2 h-4 w-4" /> Add New Job</Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-w-2xl">
                     <DialogHeader>
                     <DialogTitle>{editingJob ? 'Edit Job' : 'Add New Job'}</DialogTitle>
                     </DialogHeader>
                     <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Job Title</FormLabel>
+                                <FormControl><Input placeholder="e.g. Senior Accountant" {...field} /></FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name="location"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Location</FormLabel>
+                                <FormControl><Input placeholder="e.g. Mumbai" {...field} /></FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                            />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <FormField
+                            control={form.control}
+                            name="type"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Type</FormLabel>
+                                <FormControl><Input placeholder="e.g. Full-time" {...field} /></FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name="salary"
+                            render={({ field }) => (
+                                <FormItem>
+                                <FormLabel>Salary Range</FormLabel>
+                                <FormControl><Input placeholder="e.g. ₹6,00,000 - ₹8,00,000" {...field} /></FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                            />
+                        </div>
                         <FormField
                         control={form.control}
-                        name="title"
+                        name="requirements"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Title</FormLabel>
+                            <FormLabel>Key Requirements</FormLabel>
                             <FormControl>
-                                <Input {...field} />
+                                <Textarea placeholder="List skills and duties..." {...field} rows={4} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
@@ -144,38 +203,12 @@ export default function ManageJobsPage() {
                         />
                         <FormField
                         control={form.control}
-                        name="location"
+                        name="qualifications"
                         render={({ field }) => (
                             <FormItem>
-                            <FormLabel>Location</FormLabel>
+                            <FormLabel>Required Qualifications</FormLabel>
                             <FormControl>
-                                <Input {...field} />
-                            </FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                        />
-                        <FormField
-                        control={form.control}
-                        name="type"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Type (e.g., Full-time)</FormLabel>
-                            <FormControl>
-                                <Input {...field} />
-                            </FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                        />
-                        <FormField
-                        control={form.control}
-                        name="salary"
-                        render={({ field }) => (
-                            <FormItem>
-                            <FormLabel>Salary</FormLabel>
-                            <FormControl>
-                                <Input {...field} />
+                                <Textarea placeholder="Degree, certifications, etc." {...field} rows={4} />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
@@ -185,7 +218,7 @@ export default function ManageJobsPage() {
                             <DialogClose asChild>
                                <Button variant="outline">Cancel</Button>
                             </DialogClose>
-                            <Button type="submit">Save</Button>
+                            <Button type="submit">Save Posting</Button>
                         </DialogFooter>
                     </form>
                     </Form>
@@ -200,26 +233,34 @@ export default function ManageJobsPage() {
                     <TableHead>Location</TableHead>
                     <TableHead>Type</TableHead>
                     <TableHead>Salary</TableHead>
-                    <TableHead>Actions</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {jobs.map((job) => (
-                    <TableRow key={job.id}>
-                        <TableCell>{job.title}</TableCell>
-                        <TableCell>{job.location}</TableCell>
-                        <TableCell>{job.type}</TableCell>
-                        <TableCell>{job.salary}</TableCell>
-                        <TableCell className="flex gap-2">
-                             <Button variant="ghost" size="icon" onClick={() => openEditDialog(job)}>
-                                <Edit className="h-4 w-4" />
-                            </Button>
-                            <Button variant="ghost" size="icon" onClick={() => handleDelete(job.id!)}>
-                                <Trash2 className="h-4 w-4 text-destructive" />
-                            </Button>
-                        </TableCell>
-                    </TableRow>
-                    ))}
+                    {jobs.length === 0 ? (
+                        <TableRow>
+                            <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">No jobs posted yet.</TableCell>
+                        </TableRow>
+                    ) : (
+                        jobs.map((job) => (
+                        <TableRow key={job.id}>
+                            <TableCell className="font-medium">{job.title}</TableCell>
+                            <TableCell>{job.location}</TableCell>
+                            <TableCell>{job.type}</TableCell>
+                            <TableCell>{job.salary}</TableCell>
+                            <TableCell className="text-right">
+                                <div className="flex justify-end gap-2">
+                                    <Button variant="ghost" size="icon" onClick={() => openEditDialog(job)}>
+                                        <Edit className="h-4 w-4" />
+                                    </Button>
+                                    <Button variant="ghost" size="icon" onClick={() => handleDelete(job.id!)}>
+                                        <Trash2 className="h-4 w-4 text-destructive" />
+                                    </Button>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                        ))
+                    )}
                 </TableBody>
             </Table>
         </CardContent>

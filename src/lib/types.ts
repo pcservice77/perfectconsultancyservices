@@ -23,6 +23,22 @@ export interface Job {
     location: string;
     type: string;
     salary: string;
+    requirements?: string;
+    qualifications?: string;
+}
+
+export interface JobApplication {
+    id?: string;
+    jobId: string;
+    jobTitle: string;
+    name: string;
+    mobile: string;
+    email: string;
+    qualification: string;
+    experience: string;
+    address: string;
+    otherInfo?: string;
+    appliedAt: any;
 }
 
 export interface TaxUpdate {
@@ -39,11 +55,11 @@ export interface Contact {
     name: string;
     email: string;
     message: string;
-    createdAt: Date;
+    createdAt: any;
 }
 
 export interface Subscription {
     id?: string;
     email: string;
-    subscribedAt: Date;
+    subscribedAt: any;
 }

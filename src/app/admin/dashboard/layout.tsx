@@ -25,6 +25,7 @@ import {
   Newspaper, 
   Users, 
   MessageSquare,
+  FileBadge,
   Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -106,10 +107,18 @@ export default function DashboardLayout({
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/jobs')} tooltip="Jobs">
+              <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/jobs')} tooltip="Job Postings">
                 <Link href="/admin/dashboard/jobs">
                   <Briefcase />
                   <span>Careers</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+             <SidebarMenuItem>
+              <SidebarMenuButton asChild isActive={isActive('/admin/dashboard/applications')} tooltip="Job Applications">
+                <Link href="/admin/dashboard/applications">
+                  <FileBadge />
+                  <span>Job Applications</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
