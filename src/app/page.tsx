@@ -17,11 +17,11 @@ export default function Home() {
       <ServicesSection />
       <ToolsSection />
       <StaffSection />
-      <TestimonialsSection />
       <JobsSection />
       <TaxUpdatesSection />
       <Separator className="my-12 md:my-24" />
       <ContactSection />
+      <TestimonialsSection />
     </>
   );
 }
