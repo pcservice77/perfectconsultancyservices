@@ -94,8 +94,8 @@ export default function ServicesSection() {
       
       <div className="container mx-auto px-4 md:px-6 relative">
         <div className="mb-20 text-center space-y-4">
-          <h2 className="font-headline text-4xl md:text-5xl font-black tracking-tight text-slate-900">
-            Premium <span className="liquid-text">Expertise</span>
+          <h2 className="font-headline text-4xl md:text-5xl font-black tracking-tight text-slate-900 uppercase">
+            OUR <span className="liquid-text">SERVICES</span>
           </h2>
           <p className="max-w-2xl mx-auto text-xl text-slate-600 leading-relaxed font-medium">
             Tailored solutions for complex financial landscapes. Experience accuracy redefined.
