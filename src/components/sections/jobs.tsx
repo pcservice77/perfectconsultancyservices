@@ -1,10 +1,9 @@
-
 "use client";
 
 import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MapPin, Briefcase, IndianRupee, ClipboardCheck, GraduationCap, Link as LinkIcon } from 'lucide-react';
+import { MapPin, Briefcase, IndianRupee, ClipboardCheck, GraduationCap, Link as LinkIcon, ChevronRight } from 'lucide-react';
 import { getJobs } from '@/services/jobs';
 import type { Job } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -36,7 +35,7 @@ const applicationSchema = z.object({
   qualification: z.string().min(1, 'Qualification details are required'),
   experience: z.string().min(1, 'Experience details are required'),
   address: z.string().min(1, 'Residential address is required'),
-  resumeUrl: z.string().url('Please provide a valid URL to your resume (e.g. Google Drive link)').min(1, 'Resume link is required'),
+  resumeUrl: z.string().url('Please provide a valid URL to your resume').min(1, 'Resume link is required'),
   otherInfo: z.string().optional(),
 });
 
@@ -89,7 +88,7 @@ export default function JobsSection() {
 
         addDoc(collection(db, 'applications'), data)
             .then(() => {
-                toast({ title: 'Application Submitted!', description: "Thank you for applying. We'll review your details." });
+                toast({ title: 'Application Received!', description: "Our HR team will review your profile shortly." });
                 form.reset();
                 setIsApplying(false);
             })
@@ -104,112 +103,117 @@ export default function JobsSection() {
     };
 
   return (
-    <section id="jobs" className="py-12 md:py-24 bg-secondary">
+    <section id="jobs" className="py-24 bg-white relative">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="mb-12 text-center">
-          <h2 className="font-headline text-3xl font-bold tracking-tight text-primary sm:text-4xl">Join Our Team</h2>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/80">
-            Grow your career with PCS. We are looking for talented individuals to join our professional community.
+        <div className="mb-20 text-center space-y-4">
+          <h2 className="font-headline text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+            Professional <span className="liquid-text">Careers</span>
+          </h2>
+          <p className="max-w-2xl mx-auto text-xl text-slate-600 font-medium">
+            Join a forward-thinking consultancy and shape the future of compliance.
           </p>
         </div>
         
-        <div className="space-y-6">
+        <div className="grid gap-8 max-w-5xl mx-auto">
           {loading ? (
-             Array.from({ length: 3 }).map((_, index) => (
-                <Card key={index}><CardHeader><Skeleton className="h-20 w-full" /></CardHeader></Card>
+             Array.from({ length: 2 }).map((_, index) => (
+                <div key={index} className="h-48 rounded-[2.5rem] bg-slate-100 animate-pulse" />
              ))
           ) : (
           jobs.map((job) => (
-            <Card key={job.id} className="transition-all duration-300 hover:shadow-lg border-l-4 border-l-accent">
-              <CardHeader>
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+            <Card key={job.id} className="group overflow-hidden rounded-[2.5rem] glass border-white/60 p-8 hover:shadow-2xl transition-all duration-500 border-l-8 border-l-primary">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                <div className="space-y-4 flex-1">
                   <div className="space-y-2">
-                    <CardTitle className="font-headline text-2xl text-primary">{job.title}</CardTitle>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-foreground/70">
-                        <span className="flex items-center gap-1.5"><Briefcase className="h-4 w-4" /> {job.type}</span>
-                        <span className="flex items-center gap-1.5"><MapPin className="h-4 w-4" /> {job.location}</span>
-                        <span className="flex items-center gap-1.5"><IndianRupee className="h-4 w-4" /> {job.salary}</span>
+                    <CardTitle className="font-headline text-3xl font-black text-slate-900 leading-tight">{job.title}</CardTitle>
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                        <span className="flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-widest"><Briefcase className="h-4 w-4 text-primary" /> {job.type}</span>
+                        <span className="flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-widest"><MapPin className="h-4 w-4 text-primary" /> {job.location}</span>
+                        <span className="flex items-center gap-2 text-sm font-bold text-slate-500 uppercase tracking-widest"><IndianRupee className="h-4 w-4 text-primary" /> {job.salary}</span>
                     </div>
                   </div>
                   
-                  <Dialog open={isApplying && selectedJob?.id === job.id} onOpenChange={(open) => {
-                      if (!open) {
-                          setIsApplying(false);
-                          setSelectedJob(null);
-                      }
-                  }}>
-                    <DialogTrigger asChild>
-                        <Button 
-                            className="bg-accent text-accent-foreground hover:bg-accent/90"
-                            onClick={() => {
-                                setSelectedJob(job);
-                                setIsApplying(true);
-                            }}
-                        >
-                            Apply Now
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-                        <DialogHeader>
-                            <DialogTitle>Apply for {job.title}</DialogTitle>
-                            <DialogDescription>Please provide your professional details below.</DialogDescription>
-                        </DialogHeader>
-                        
-                        <div className="py-4 space-y-6">
-                            {(job.requirements || job.qualifications) && (
-                                <div className="grid md:grid-cols-2 gap-4 bg-primary/5 p-4 rounded-lg border border-primary/10">
-                                    {job.requirements && (
-                                        <div>
-                                            <h4 className="font-semibold text-primary flex items-center gap-2 mb-2">
-                                                <ClipboardCheck className="h-4 w-4" /> Requirements
-                                            </h4>
-                                            <p className="text-xs text-foreground/80 whitespace-pre-wrap">{job.requirements}</p>
-                                        </div>
-                                    )}
-                                    {job.qualifications && (
-                                        <div>
-                                            <h4 className="font-semibold text-primary flex items-center gap-2 mb-2">
-                                                <GraduationCap className="h-4 w-4" /> Qualifications
-                                            </h4>
-                                            <p className="text-xs text-foreground/80 whitespace-pre-wrap">{job.qualifications}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
+                  <div className="grid sm:grid-cols-2 gap-6 pt-4">
+                    {job.requirements && (
+                        <div className="space-y-2">
+                            <h4 className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-2">
+                                <ClipboardCheck className="h-3 w-3" /> Core Skills
+                            </h4>
+                            <p className="text-sm text-slate-600 font-medium line-clamp-2">{job.requirements}</p>
+                        </div>
+                    )}
+                    {job.qualifications && (
+                        <div className="space-y-2">
+                            <h4 className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-2">
+                                <GraduationCap className="h-3 w-3" /> Minimum Ed.
+                            </h4>
+                            <p className="text-sm text-slate-600 font-medium line-clamp-2">{job.qualifications}</p>
+                        </div>
+                    )}
+                  </div>
+                </div>
 
-                            <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                                    <div className="grid md:grid-cols-2 gap-4">
-                                        <FormField
-                                            control={form.control}
-                                            name="name"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Full Name</FormLabel>
-                                                    <FormControl><Input placeholder="Your full name" {...field} /></FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <FormField
-                                            control={form.control}
-                                            name="mobile"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Mobile Number</FormLabel>
-                                                    <FormControl><Input placeholder="e.g. 9876543210" {...field} /></FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    </div>
+                <Dialog open={isApplying && selectedJob?.id === job.id} onOpenChange={(open) => {
+                    if (!open) {
+                        setIsApplying(false);
+                        setSelectedJob(null);
+                    }
+                }}>
+                  <DialogTrigger asChild>
+                      <Button 
+                          className="h-16 px-10 rounded-2xl bg-slate-900 text-white hover:bg-primary font-black text-lg transition-all group-hover:scale-105"
+                          onClick={() => {
+                              setSelectedJob(job);
+                              setIsApplying(true);
+                          }}
+                      >
+                          Apply Now
+                          <ChevronRight className="ml-2 h-5 w-5" />
+                      </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl glass border-white/40 p-0 overflow-hidden rounded-[2.5rem] max-h-[95vh]">
+                      <div className="bg-primary p-12 text-white">
+                        <DialogHeader>
+                            <DialogTitle className="text-4xl font-black mb-2">Apply for {job.title}</DialogTitle>
+                            <DialogDescription className="text-white/80 text-lg font-medium">Join PCS. Step into a world of financial excellence.</DialogDescription>
+                        </DialogHeader>
+                      </div>
+                      
+                      <div className="p-12 overflow-y-auto max-h-[calc(95vh-160px)]">
+                          <Form {...form}>
+                              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                                  <div className="grid md:grid-cols-2 gap-8">
+                                      <FormField
+                                          control={form.control}
+                                          name="name"
+                                          render={({ field }) => (
+                                              <FormItem>
+                                                  <FormLabel className="font-bold text-slate-700">Full Name</FormLabel>
+                                                  <FormControl><Input placeholder="Your full name" className="h-14 rounded-xl border-slate-200" {...field} /></FormControl>
+                                                  <FormMessage />
+                                              </FormItem>
+                                          )}
+                                      />
+                                      <FormField
+                                          control={form.control}
+                                          name="mobile"
+                                          render={({ field }) => (
+                                              <FormItem>
+                                                  <FormLabel className="font-bold text-slate-700">Mobile Number</FormLabel>
+                                                  <FormControl><Input placeholder="10-digit number" className="h-14 rounded-xl border-slate-200" {...field} /></FormControl>
+                                                  <FormMessage />
+                                              </FormItem>
+                                          )}
+                                      />
+                                  </div>
+                                  <div className="grid md:grid-cols-2 gap-8">
                                     <FormField
                                         control={form.control}
                                         name="email"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Email Address</FormLabel>
-                                                <FormControl><Input type="email" placeholder="name@example.com" {...field} /></FormControl>
+                                                <FormLabel className="font-bold text-slate-700">Email Address</FormLabel>
+                                                <FormControl><Input type="email" placeholder="name@domain.com" className="h-14 rounded-xl border-slate-200" {...field} /></FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
@@ -219,25 +223,26 @@ export default function JobsSection() {
                                         name="resumeUrl"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Resume Link (Google Drive / Dropbox)</FormLabel>
+                                                <FormLabel className="font-bold text-slate-700">Resume Link (Google Drive/Dropbox)</FormLabel>
                                                 <FormControl>
                                                     <div className="flex items-center gap-2">
-                                                        <LinkIcon className="h-4 w-4 text-muted-foreground" />
-                                                        <Input placeholder="https://drive.google.com/..." {...field} />
+                                                        <LinkIcon className="h-5 w-5 text-primary" />
+                                                        <Input placeholder="https://drive.google.com/..." className="h-14 rounded-xl border-slate-200" {...field} />
                                                     </div>
                                                 </FormControl>
-                                                <FormDescription>Provide a link to your PDF resume. Ensure the link is shared with public access.</FormDescription>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
+                                  </div>
+                                  <div className="grid md:grid-cols-2 gap-8">
                                     <FormField
                                         control={form.control}
                                         name="qualification"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Highest Qualification</FormLabel>
-                                                <FormControl><Input placeholder="e.g. M.Com, CA Inter, MBA Finance" {...field} /></FormControl>
+                                                <FormLabel className="font-bold text-slate-700">Highest Qualification</FormLabel>
+                                                <FormControl><Input placeholder="e.g. CA, MBA, M.Com" className="h-14 rounded-xl border-slate-200" {...field} /></FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
@@ -247,64 +252,33 @@ export default function JobsSection() {
                                         name="experience"
                                         render={({ field }) => (
                                             <FormItem>
-                                                <FormLabel>Past Experience</FormLabel>
-                                                <FormControl><Textarea placeholder="Briefly describe your work history..." {...field} rows={3} /></FormControl>
+                                                <FormLabel className="font-bold text-slate-700">Total Experience</FormLabel>
+                                                <FormControl><Input placeholder="e.g. 5 Years in GST" className="h-14 rounded-xl border-slate-200" {...field} /></FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
-                                    <FormField
-                                        control={form.control}
-                                        name="address"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Residential Address</FormLabel>
-                                                <FormControl><Textarea placeholder="Your full current address" {...field} rows={2} /></FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="otherInfo"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Additional Information (Optional)</FormLabel>
-                                                <FormControl><Textarea placeholder="Any other relevant details or skills..." {...field} rows={2} /></FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <DialogFooter className="pt-4">
-                                        <Button type="submit" className="w-full">Submit Application</Button>
-                                    </DialogFooter>
-                                </form>
-                            </Form>
-                        </div>
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-6 mt-2">
-                    {job.requirements && (
-                        <div>
-                            <h4 className="text-sm font-bold text-primary flex items-center gap-2 mb-2 uppercase tracking-tight">
-                                <ClipboardCheck className="h-4 w-4 text-accent" /> Key Requirements
-                            </h4>
-                            <p className="text-sm text-foreground/80 whitespace-pre-wrap">{job.requirements}</p>
-                        </div>
-                    )}
-                    {job.qualifications && (
-                        <div>
-                            <h4 className="text-sm font-bold text-primary flex items-center gap-2 mb-2 uppercase tracking-tight">
-                                <GraduationCap className="h-4 w-4 text-accent" /> Qualifications
-                            </h4>
-                            <p className="text-sm text-foreground/80 whitespace-pre-wrap">{job.qualifications}</p>
-                        </div>
-                    )}
-                </div>
-              </CardContent>
+                                  </div>
+                                  <FormField
+                                      control={form.control}
+                                      name="address"
+                                      render={({ field }) => (
+                                          <FormItem>
+                                              <FormLabel className="font-bold text-slate-700">Current Address</FormLabel>
+                                              <FormControl><Textarea placeholder="Full residential address" className="rounded-xl border-slate-200 p-4" rows={3} {...field} /></FormControl>
+                                              <FormMessage />
+                                          </FormItem>
+                                      )}
+                                  />
+                                  <DialogFooter className="pt-6 border-t border-slate-100">
+                                      <Button type="submit" className="w-full h-16 rounded-2xl bg-primary text-white font-black text-xl shadow-2xl shadow-primary/20">Submit My Application</Button>
+                                  </DialogFooter>
+                              </form>
+                          </Form>
+                      </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
             </Card>
           )))}
         </div>

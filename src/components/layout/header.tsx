@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -34,9 +33,9 @@ export default function Header() {
   const navLinks = [
     { href: '#about', label: 'About' },
     { href: '#services', label: 'Services' },
-    { href: '#team', label: 'Team' },
+    { href: '#team', label: 'Leadership' },
     { href: '#jobs', label: 'Careers' },
-    { href: '#tax-updates', label: 'Updates' },
+    { href: '#tax-updates', label: 'Insights' },
     { href: '#contact', label: 'Contact' },
   ];
 
@@ -45,122 +44,103 @@ export default function Header() {
   };
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-background/95 shadow-md backdrop-blur-sm' : 'bg-transparent'}`}>
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        <div className="flex items-center gap-4">
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <Mountain className="h-6 w-6 text-primary" />
-            <span className="text-primary hidden lg:inline uppercase">Perfect Consultancy Services</span>
-            <span className="text-primary lg:hidden uppercase">PCS</span>
+    <header className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl transition-all duration-500 rounded-2xl ${isScrolled ? 'glass py-2 px-4' : 'bg-transparent py-4 px-2'}`}>
+      <div className="flex h-12 items-center justify-between">
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl group">
+            <div className="p-2 bg-primary rounded-xl group-hover:rotate-12 transition-transform duration-300">
+              <Mountain className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-primary hidden lg:inline tracking-tight">PERFECT CONSULTANCY</span>
+            <span className="text-primary lg:hidden">PCS</span>
           </Link>
 
-          {user && (
-            <div className="hidden md:flex items-center gap-2 pl-4 border-l">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 px-2 hover:bg-accent/10">
-                    <Avatar className="h-8 w-8">
-                      <AvatarFallback className="bg-primary/10 text-primary text-xs">
-                        {user.email?.substring(0, 2).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col items-start text-left">
-                      <span className="text-xs font-semibold truncate max-w-[150px]">{user.email}</span>
-                      {user.isAdmin && <span className="text-[10px] text-accent font-bold uppercase">Admin</span>}
-                    </div>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-56">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {user.isAdmin && (
-                    <DropdownMenuItem asChild>
-                      <Link href="/admin/dashboard" className="flex items-center gap-2 cursor-pointer">
-                        <ShieldCheck className="h-4 w-4" />
-                        <span>Admin Dashboard</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  )}
-                  <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive cursor-pointer">
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          )}
+          <nav className="hidden items-center gap-8 md:flex ml-4">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.href} 
+                href={link.href} 
+                className="text-sm font-semibold text-slate-600 transition-all hover:text-primary hover:scale-105"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        <nav className="hidden items-center gap-6 md:flex">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-medium text-foreground/70 transition-colors hover:text-primary">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
         <div className="flex items-center gap-4">
-          {!user ? (
-            <Button variant="outline" asChild size="sm" className="hidden md:inline-flex">
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-3 p-1 pr-3 rounded-full hover:bg-white/50 border border-transparent hover:border-white/40">
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                      {user.email?.substring(0, 2).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="hidden sm:flex flex-col items-start text-left">
+                    <span className="text-xs font-bold text-slate-800">{user.email?.split('@')[0]}</span>
+                    {user.isAdmin && <span className="text-[10px] text-accent font-black uppercase leading-none">Admin</span>}
+                  </div>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56 glass mt-2">
+                <DropdownMenuLabel>Account Overview</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {user.isAdmin && (
+                  <DropdownMenuItem asChild>
+                    <Link href="/admin/dashboard" className="flex items-center gap-2 cursor-pointer font-medium">
+                      <ShieldCheck className="h-4 w-4 text-primary" />
+                      <span>Admin Dashboard</span>
+                    </Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={handleLogout} className="text-destructive focus:text-destructive cursor-pointer font-medium">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button variant="default" asChild className="hidden md:flex rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all">
               <Link href="/admin">Client Login</Link>
             </Button>
-          ) : (
-            user.isAdmin && (
-              <Button asChild variant="secondary" size="sm" className="hidden lg:flex">
-                <Link href="/admin/dashboard">
-                  <ShieldCheck className="mr-2 h-4 w-4" />
-                  Admin Panel
-                </Link>
-              </Button>
-            )
           )}
           
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle navigation menu</span>
+              <Button variant="ghost" size="icon" className="md:hidden glass rounded-xl">
+                <Menu className="h-6 w-6 text-primary" />
+                <span className="sr-only">Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right">
-              <div className="grid gap-4 py-6">
-                <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-                  <Mountain className="h-6 w-6 text-primary" />
+            <SheetContent side="right" className="glass border-l-0">
+              <div className="grid gap-6 py-8">
+                <Link href="/" className="flex items-center gap-3 font-bold text-2xl">
+                  <div className="p-2 bg-primary rounded-xl text-white">
+                    <Mountain className="h-6 w-6" />
+                  </div>
                   <span className="text-primary">PCS</span>
                 </Link>
-                {user && (
-                   <div className="flex items-center gap-3 p-3 bg-secondary rounded-lg">
-                    <Avatar className="h-10 w-10">
-                      <AvatarFallback>{user.email?.substring(0, 2).toUpperCase()}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                      <span className="text-sm font-bold truncate">{user.email}</span>
-                      {user.isAdmin && <span className="text-xs text-accent">Administrator</span>}
-                    </div>
-                  </div>
-                )}
-                <nav className="grid gap-2">
+                <nav className="grid gap-4 mt-8">
                   {navLinks.map((link) => (
-                    <Link key={link.href} href={link.href} className="flex w-full items-center py-2 text-lg font-semibold">
+                    <Link key={link.href} href={link.href} className="text-xl font-bold text-slate-800 hover:text-primary transition-colors">
                       {link.label}
                     </Link>
                   ))}
-                  {user?.isAdmin && (
-                    <Link href="/admin/dashboard" className="flex w-full items-center py-2 text-lg font-semibold text-primary">
-                      Admin Panel
-                    </Link>
-                  )}
                 </nav>
-                {!user ? (
-                  <Button asChild>
-                    <Link href="/admin">Client Login</Link>
-                  </Button>
-                ) : (
-                  <Button variant="destructive" onClick={handleLogout}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Logout
-                  </Button>
-                )}
+                <div className="mt-8 pt-8 border-t border-slate-200">
+                  {!user ? (
+                    <Button asChild className="w-full rounded-2xl h-14 text-lg">
+                      <Link href="/admin">Client Login</Link>
+                    </Button>
+                  ) : (
+                    <Button variant="destructive" onClick={handleLogout} className="w-full rounded-2xl h-14 text-lg">
+                      <LogOut className="mr-2 h-5 w-5" />
+                      Logout
+                    </Button>
+                  )}
+                </div>
               </div>
             </SheetContent>
           </Sheet>
