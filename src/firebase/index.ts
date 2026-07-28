@@ -5,9 +5,8 @@ import { getAuth, Auth } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
 /**
- * Trigger rules deployment: Updated to ensure UserProfile has CREATE permissions for own doc.
- * Added support for public READ of CMS collections and Admin-only write access.
- * Verified rules version 2 for Firestore compatibility.
+ * Trigger rules deployment: Ensuring explicit (get/list) READ permissions for Admin
+ * on applications, enquiries, and subscriptions collections.
  */
 
 let app: FirebaseApp;
