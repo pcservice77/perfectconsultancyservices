@@ -35,6 +35,7 @@ export async function summarizeTaxUpdate(
 
 const prompt = ai.definePrompt({
   name: 'summarizeTaxUpdatePrompt',
+  model: 'googleai/gemini-1.5-flash',
   input: {schema: SummarizeTaxUpdateInputSchema},
   output: {schema: SummarizeTaxUpdateOutputSchema},
   prompt: `Summarize the following tax update article, focusing on the key implications and any relevant deadlines.\n\nArticle Content:\n{{{articleContent}}}`,
