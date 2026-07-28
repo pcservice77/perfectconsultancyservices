@@ -1,14 +1,14 @@
-
 "use client";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Mountain, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
@@ -99,7 +99,13 @@ export default function AuthPage() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center items-center gap-2 mb-4">
-            <Mountain className="h-8 w-8 text-primary" />
+            <Image 
+              src="https://i.ibb.co/7Pkj4jM/perfect.jpg" 
+              alt="PCS Logo" 
+              width={32} 
+              height={32} 
+              className="rounded-lg shadow-sm object-cover"
+            />
             <span className="text-2xl font-bold text-primary leading-tight uppercase">Perfect Consultancy Services</span>
           </div>
           <CardTitle className="text-xl">Client & Admin Access</CardTitle>

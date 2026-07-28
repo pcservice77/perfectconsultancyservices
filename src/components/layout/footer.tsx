@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Mountain, Twitter, Linkedin, Facebook, Phone, Mail, MapPin, Clock, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { Twitter, Linkedin, Facebook, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 import ClientOnly from '@/components/client-only';
 import { Button } from '@/components/ui/button';
 
@@ -10,8 +11,14 @@ export default function Footer() {
         <div className="grid gap-16 lg:grid-cols-4">
           <div className="flex flex-col items-start gap-8 lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 font-black text-2xl tracking-tighter">
-              <div className="p-2 bg-primary rounded-xl text-white">
-                <Mountain className="h-6 w-6" />
+              <div className="p-1 bg-primary rounded-xl overflow-hidden">
+                <Image 
+                  src="https://i.ibb.co/7Pkj4jM/perfect.jpg" 
+                  alt="PCS Logo" 
+                  width={32} 
+                  height={32} 
+                  className="rounded-sm object-cover"
+                />
               </div>
               <span className="text-primary uppercase">Perfect Consultancy</span>
             </Link>

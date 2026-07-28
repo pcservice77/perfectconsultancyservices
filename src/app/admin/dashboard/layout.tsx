@@ -1,8 +1,8 @@
-
 "use client";
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import {
   SidebarProvider,
@@ -19,7 +19,6 @@ import {
 import { 
   LayoutDashboard, 
   LogOut, 
-  Mountain, 
   Briefcase, 
   FileText, 
   Newspaper, 
@@ -68,7 +67,13 @@ export default function DashboardLayout({
       <Sidebar>
         <SidebarHeader>
           <div className="flex items-center gap-2 p-2">
-            <Mountain className="h-6 w-6 text-sidebar-primary" />
+            <Image 
+              src="https://i.ibb.co/7Pkj4jM/perfect.jpg" 
+              alt="PCS Logo" 
+              width={24} 
+              height={24} 
+              className="rounded-md object-cover"
+            />
             <span className="text-sm font-semibold text-sidebar-primary truncate">PCS Admin</span>
           </div>
         </SidebarHeader>

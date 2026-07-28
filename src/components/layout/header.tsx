@@ -2,9 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Mountain, ShieldCheck, User, LogOut } from 'lucide-react';
+import { Menu, ShieldCheck, User, LogOut } from 'lucide-react';
 import { useUser, useAuth } from '@/firebase';
 import { signOut } from 'firebase/auth';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -48,8 +49,14 @@ export default function Header() {
       <div className="flex h-12 items-center justify-between">
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-2 font-bold text-xl group">
-            <div className="p-2 bg-primary rounded-xl group-hover:rotate-12 transition-transform duration-300">
-              <Mountain className="h-6 w-6 text-white" />
+            <div className="p-1 bg-primary rounded-xl group-hover:rotate-12 transition-transform duration-300 overflow-hidden">
+              <Image 
+                src="https://i.ibb.co/7Pkj4jM/perfect.jpg" 
+                alt="PCS Logo" 
+                width={32} 
+                height={32} 
+                className="rounded-sm object-cover"
+              />
             </div>
             <span className="text-primary hidden lg:inline tracking-tight">PERFECT CONSULTANCY</span>
             <span className="text-primary lg:hidden">PCS</span>
@@ -117,8 +124,14 @@ export default function Header() {
             <SheetContent side="right" className="glass border-l-0">
               <div className="grid gap-6 py-8">
                 <Link href="/" className="flex items-center gap-3 font-bold text-2xl">
-                  <div className="p-2 bg-primary rounded-xl text-white">
-                    <Mountain className="h-6 w-6" />
+                  <div className="p-1 bg-primary rounded-xl overflow-hidden">
+                    <Image 
+                      src="https://i.ibb.co/7Pkj4jM/perfect.jpg" 
+                      alt="PCS Logo" 
+                      width={32} 
+                      height={32} 
+                      className="rounded-sm object-cover"
+                    />
                   </div>
                   <span className="text-primary">PCS</span>
                 </Link>
