@@ -32,6 +32,7 @@ export default function Header() {
   }, []);
 
   const navLinks = [
+    { href: '#about', label: 'About' },
     { href: '#services', label: 'Services' },
     { href: '#team', label: 'Team' },
     { href: '#jobs', label: 'Careers' },

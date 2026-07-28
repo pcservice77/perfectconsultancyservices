@@ -24,5 +24,14 @@
       "height": 400,
       "aiHint": "finance accounting"
     }
+  ],
+  "about": [
+    {
+      "id": "office-view",
+      "url": "https://picsum.photos/seed/office/800/600",
+      "width": 800,
+      "height": 600,
+      "aiHint": "professional office"
+    }
   ]
 }
