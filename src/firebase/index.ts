@@ -5,11 +5,13 @@ import { getAuth, Auth } from 'firebase/auth';
 import { firebaseConfig } from './config';
 
 /**
- * TRIGGER RULES DEPLOYMENT (v2):
+ * TRIGGER RULES DEPLOYMENT (v3):
  * 1. Public (unauthenticated) CREATE for: /enquiries, /subscriptions, /applications.
  * 2. Authenticated user CREATE/READ/WRITE for: /users/{userId} (where userId matches auth.uid).
  * 3. Public (unauthenticated) READ for: /services, /staff, /jobs, /taxUpdates.
  * 4. Admin (isAdmin == true) full access (READ/WRITE/DELETE) to ALL collections.
+ * 
+ * Update log: Explicitly verified public CREATE permissions for application submissions.
  */
 
 let app: FirebaseApp;
