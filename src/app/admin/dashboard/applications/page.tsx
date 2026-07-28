@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button';
 import { useFirestore, useCollection } from '@/firebase';
 import { collection, query, orderBy, deleteDoc, doc } from 'firebase/firestore';
-import { Trash2, FileBadge, Loader2, Eye } from 'lucide-react';
+import { Trash2, FileBadge, Loader2, Eye, FileText, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import {
   Dialog,
@@ -18,6 +18,7 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import Link from 'next/link';
 
 export default function ApplicationsPage() {
   const db = useFirestore();
@@ -54,7 +55,7 @@ export default function ApplicationsPage() {
               <TableHead>Date</TableHead>
               <TableHead>Candidate</TableHead>
               <TableHead>Job Title</TableHead>
-              <TableHead>Experience</TableHead>
+              <TableHead>Resume</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -76,7 +77,18 @@ export default function ApplicationsPage() {
                     </div>
                   </TableCell>
                   <TableCell>{app.jobTitle}</TableCell>
-                  <TableCell className="max-w-[150px] truncate">{app.experience}</TableCell>
+                  <TableCell>
+                    {app.resumeUrl ? (
+                      <Button variant="outline" size="sm" asChild>
+                        <Link href={app.resumeUrl} target="_blank" className="flex items-center gap-1">
+                          <FileText className="h-3 w-3" />
+                          View Resume
+                        </Link>
+                      </Button>
+                    ) : (
+                      <span className="text-xs text-muted-foreground italic">No link</span>
+                    )}
+                  </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                         <Dialog>
@@ -107,6 +119,21 @@ export default function ApplicationsPage() {
                                         <div>
                                             <h4 className="font-semibold text-primary mb-1">Qualification</h4>
                                             <p>{app.qualification}</p>
+                                        </div>
+                                        <div className="col-span-2">
+                                            <h4 className="font-semibold text-primary mb-1">Resume Link</h4>
+                                            {app.resumeUrl ? (
+                                              <Link 
+                                                href={app.resumeUrl} 
+                                                target="_blank" 
+                                                className="text-accent hover:underline flex items-center gap-1 font-medium"
+                                              >
+                                                {app.resumeUrl}
+                                                <ExternalLink className="h-3 w-3" />
+                                              </Link>
+                                            ) : (
+                                              <p className="text-muted-foreground italic">Not provided</p>
+                                            )}
                                         </div>
                                         <div className="col-span-2">
                                             <h4 className="font-semibold text-primary mb-1">Experience</h4>

@@ -37,6 +37,7 @@ export interface JobApplication {
     qualification: string;
     experience: string;
     address: string;
+    resumeUrl?: string;
     otherInfo?: string;
     appliedAt: any;
 }

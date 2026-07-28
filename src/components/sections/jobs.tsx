@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { MapPin, Briefcase, IndianRupee, ClipboardCheck, GraduationCap, Info } from 'lucide-react';
+import { MapPin, Briefcase, IndianRupee, ClipboardCheck, GraduationCap, Link as LinkIcon } from 'lucide-react';
 import { getJobs } from '@/services/jobs';
 import type { Job } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -17,7 +17,7 @@ import {
   DialogTrigger,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage, FormDescription } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from 'react-hook-form';
@@ -36,6 +36,7 @@ const applicationSchema = z.object({
   qualification: z.string().min(1, 'Qualification details are required'),
   experience: z.string().min(1, 'Experience details are required'),
   address: z.string().min(1, 'Residential address is required'),
+  resumeUrl: z.string().url('Please provide a valid URL to your resume (e.g. Google Drive link)').min(1, 'Resume link is required'),
   otherInfo: z.string().optional(),
 });
 
@@ -57,6 +58,7 @@ export default function JobsSection() {
             qualification: '',
             experience: '',
             address: '',
+            resumeUrl: '',
             otherInfo: '',
         },
     });
@@ -208,6 +210,23 @@ export default function JobsSection() {
                                             <FormItem>
                                                 <FormLabel>Email Address</FormLabel>
                                                 <FormControl><Input type="email" placeholder="name@example.com" {...field} /></FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={form.control}
+                                        name="resumeUrl"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Resume Link (Google Drive / Dropbox)</FormLabel>
+                                                <FormControl>
+                                                    <div className="flex items-center gap-2">
+                                                        <LinkIcon className="h-4 w-4 text-muted-foreground" />
+                                                        <Input placeholder="https://drive.google.com/..." {...field} />
+                                                    </div>
+                                                </FormControl>
+                                                <FormDescription>Provide a link to your PDF resume. Ensure the link is shared with public access.</FormDescription>
                                                 <FormMessage />
                                             </FormItem>
                                         )}

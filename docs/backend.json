@@ -76,6 +76,7 @@
         "qualification": { "type": "string" },
         "experience": { "type": "string" },
         "address": { "type": "string" },
+        "resumeUrl": { "type": "string", "description": "Link to PDF resume (Google Drive, Dropbox, etc.)" },
         "otherInfo": { "type": "string" },
         "appliedAt": { "type": "string", "format": "date-time" }
       },
