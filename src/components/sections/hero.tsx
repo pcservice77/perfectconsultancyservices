@@ -19,11 +19,11 @@ export default function HeroSection() {
             </div>
             
             <h1 className="font-headline text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Elevate Your <span className="liquid-text">Financial Future</span> with Precision.
+              Perfect Consultancy: Best <span className="liquid-text">Tax Consultant in Ranchi</span>.
             </h1>
             
             <p className="text-xl text-slate-600 max-w-xl leading-relaxed">
-              Experience a new standard of tax, accounting, and business compliance. Seamlessly professional, modernly efficient, and purely dedicated to your growth.
+              Experience a new standard of tax, accounting, and business compliance. Seamlessly professional, modernly efficient, and Ranchi's most trusted firm for your financial growth.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -34,7 +34,7 @@ export default function HeroSection() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-16 px-8 rounded-2xl text-lg font-bold glass border-white/80 hover:bg-white/80 transition-all">
-                <Link href="#contact">Get in Touch</Link>
+                <Link href="#contact">Consult with Experts</Link>
               </Button>
             </div>
 
@@ -58,7 +58,7 @@ export default function HeroSection() {
             <div className="relative z-10 overflow-hidden rounded-[2.5rem] shadow-2xl glass border-white/40 aspect-[4/5]">
               <Image
                 src="https://i.ibb.co/7N1kNv7D/Stock-Cake-Teamwork-in-Office-996932-medium.jpg"
-                alt="Professional Teamwork"
+                alt="Perfect Consultancy Services Ranchi Office"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 priority

@@ -8,8 +8,21 @@ import TaxAssistantChat from '@/components/tax-assistant-chat';
 import WhatsAppButton from '@/components/whatsapp-button';
 
 export const metadata: Metadata = {
-  title: 'PERFECT CONSULTANCY SERVICES',
-  description: 'Professional Tax, Accounting & Business Compliance. Fast, Accurate, Trusted.',
+  metadataBase: new URL('https://perfectconsultancyservices.in'),
+  title: 'Perfect Consultancy Services | Best Tax Consultant in Ranchi | GST & ITR',
+  description: 'Looking for a reliable tax consultant in Ranchi? Perfect Consultancy Services offers expert GST registration, ITR filing, audit, and business compliance. Trusted by 1500+ businesses. Fast, accurate, and professional accounting services.',
+  keywords: ['Tax Consultant in Ranchi', 'GST Registration Ranchi', 'Income Tax Filing Ranchi', 'Perfect Consultancy Services', 'Best Accountant in Ranchi', 'Business Compliance Ranchi', 'ITR filing services Jharkhand'],
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Perfect Consultancy Services | Best Tax Consultant in Ranchi',
+    description: 'Expert Tax, Accounting & Business Compliance services in Ranchi. Professional, fast, and trusted.',
+    url: 'https://perfectconsultancyservices.in',
+    siteName: 'Perfect Consultancy Services',
+    locale: 'en_IN',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
