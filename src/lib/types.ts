@@ -55,6 +55,8 @@ export interface Contact {
     id?: string;
     name: string;
     email: string;
+    mobile?: string;
+    serviceTitle?: string;
     message: string;
     createdAt: any;
 }

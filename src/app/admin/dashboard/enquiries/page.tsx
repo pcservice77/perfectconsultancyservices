@@ -7,8 +7,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Button } from '@/components/ui/button';
 import { useFirestore, useCollection } from '@/firebase';
 import { collection, query, orderBy, deleteDoc, doc } from 'firebase/firestore';
-import { Trash2, MessageSquare, Loader2 } from 'lucide-react';
+import { Trash2, MessageSquare, Loader2, Phone, Briefcase } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Badge } from '@/components/ui/badge';
 
 export default function EnquiriesPage() {
   const db = useFirestore();
@@ -34,19 +35,19 @@ export default function EnquiriesPage() {
       <CardHeader>
         <div className="flex items-center gap-2">
           <MessageSquare className="h-5 w-5 text-primary" />
-          <CardTitle>Customer Enquiries</CardTitle>
+          <CardTitle>Customer Enquiries & Service Requests</CardTitle>
         </div>
-        <CardDescription>View and manage contact form submissions from your website.</CardDescription>
+        <CardDescription>View submissions from contact forms and service enquiry buttons.</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Date</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead>Client Details</TableHead>
               <TableHead>Message</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -60,10 +61,33 @@ export default function EnquiriesPage() {
                   <TableCell className="text-xs">
                     {enq.createdAt?.toDate ? enq.createdAt.toDate().toLocaleString() : new Date(enq.createdAt).toLocaleString()}
                   </TableCell>
-                  <TableCell className="font-medium">{enq.name}</TableCell>
-                  <TableCell>{enq.email}</TableCell>
-                  <TableCell className="max-w-xs truncate">{enq.message}</TableCell>
                   <TableCell>
+                    {enq.serviceTitle ? (
+                      <div className="flex flex-col gap-1">
+                        <Badge variant="default" className="w-fit flex gap-1">
+                          <Briefcase className="h-3 w-3" />
+                          Service
+                        </Badge>
+                        <span className="text-xs font-semibold text-primary">{enq.serviceTitle}</span>
+                      </div>
+                    ) : (
+                      <Badge variant="secondary" className="w-fit">General</Badge>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex flex-col">
+                        <span className="font-medium">{enq.name}</span>
+                        <span className="text-xs text-muted-foreground">{enq.email}</span>
+                        {enq.mobile && (
+                          <span className="text-xs flex items-center gap-1 text-accent font-medium">
+                            <Phone className="h-3 w-3" />
+                            {enq.mobile}
+                          </span>
+                        )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="max-w-xs whitespace-pre-wrap text-xs">{enq.message}</TableCell>
+                  <TableCell className="text-right">
                     <Button variant="ghost" size="icon" onClick={() => handleDelete(enq.id)}>
                       <Trash2 className="h-4 w-4 text-destructive" />
                     </Button>
