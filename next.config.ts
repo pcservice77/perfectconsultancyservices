@@ -12,14 +12,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
+        hostname: 'picsum.photos',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
+        hostname: 'placehold.co',
         pathname: '/**',
       },
     ],
