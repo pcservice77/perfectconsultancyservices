@@ -58,7 +58,7 @@ export default function Header() {
                 className="rounded-sm object-cover"
               />
             </div>
-            <span className="text-primary hidden lg:inline tracking-tight">PERFECT CONSULTANCY</span>
+            <span className="text-primary hidden lg:inline tracking-tight">PERFECT CONSULTANCY SERVICES</span>
             <span className="text-primary lg:hidden">PCS</span>
           </Link>
 
