@@ -24,7 +24,14 @@ export const metadata: Metadata = {
     'Business Compliance Ranchi', 
     'ITR filing services Jharkhand',
     'Chartered Accountant Ranchi',
-    'Roshpa Tower Ranchi Services'
+    'Roshpa Tower Ranchi Services',
+    'Perfect Tax Ranchi',
+    'Accounting services in Ranchi',
+    'GST Consultant Ranchi',
+    'Income Tax Ranchi',
+    'Audit Ranchi',
+    'PCS Ranchi',
+    'PCS Tax Consultant'
   ],
   alternates: {
     canonical: '/',
@@ -56,7 +63,14 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Perfect Consultancy Services",
-    "alternateName": ["Perfect Consultancy", "Perfect Tax Consultant"],
+    "alternateName": [
+      "Perfect Consultancy", 
+      "Perfect Tax Consultant", 
+      "Perfect Tax Ranchi", 
+      "PCS Ranchi", 
+      "PCS Tax Services",
+      "Perfect Accounting Ranchi"
+    ],
     "image": "https://i.ibb.co/7Pkj4jM/perfect.jpg",
     "@id": "https://perfectconsultancyservices.in",
     "url": "https://perfectconsultancyservices.in",
@@ -90,7 +104,12 @@ export default function RootLayout({
     "sameAs": [
       "https://www.facebook.com/pcservice77",
       "https://www.linkedin.com/company/perfect-consultancy-services"
-    ]
+    ],
+    "priceRange": "$$",
+    "areaServed": {
+      "@type": "City",
+      "name": "Ranchi"
+    }
   };
 
   return (

@@ -14,7 +14,7 @@ export default function Footer() {
               <div className="p-1 bg-primary rounded-xl overflow-hidden">
                 <Image 
                   src="https://i.ibb.co/7Pkj4jM/perfect.jpg" 
-                  alt="Perfect Consultancy Services Logo" 
+                  alt="Perfect Consultancy Services Ranchi - Best Tax Consultant" 
                   width={32} 
                   height={32} 
                   className="rounded-sm object-cover"
@@ -81,6 +81,10 @@ export default function Footer() {
           </div>
         </div>
         
+        <div className="sr-only">
+          <p>Perfect Consultancy, Perfect Consultancy Services, Tax consultant in Ranchi, Tax consultancy in Roshpa Tower, GST Registration Ranchi, Income Tax return filing Ranchi, ITR filing Ranchi, Chartered Accountant Ranchi, Accounting services in Ranchi, Roshpa Tower Ranchi services.</p>
+        </div>
+
         <div className="mt-24 pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6">
           <ClientOnly>
             <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">

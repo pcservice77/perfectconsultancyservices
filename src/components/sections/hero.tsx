@@ -6,6 +6,21 @@ import { ArrowRight, ChevronRight, CheckCircle2 } from 'lucide-react';
 export default function HeroSection() {
   return (
     <section className="relative w-full min-h-screen flex items-center pt-24 pb-12 overflow-hidden bg-slate-50">
+      {/* Hidden SEO Keywords for Search Engines */}
+      <div className="sr-only">
+        <h2>Perfect Consultancy Services Ranchi</h2>
+        <p>Expert Tax Consultant in Roshpa Tower, Ranchi. Perfect Consultancy for GST, Income Tax, ITR, Audit, and Business Compliance. Leading tax consultant ranchi and perfect tax consultant.</p>
+        <ul>
+          <li>Perfect Consultancy</li>
+          <li>Tax consultancy services in Ranchi</li>
+          <li>Tax consultant in Roshpa Tower</li>
+          <li>Perfect Tax Consultant</li>
+          <li>Tax consultant Ranchi</li>
+          <li>GST Registration Ranchi</li>
+          <li>Accounting services Ranchi</li>
+        </ul>
+      </div>
+
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[500px] h-[500px] bg-accent/10 rounded-full blur-3xl" />
@@ -58,7 +73,7 @@ export default function HeroSection() {
             <div className="relative z-10 overflow-hidden rounded-[2.5rem] shadow-2xl glass border-white/40 aspect-[4/5]">
               <Image
                 src="https://i.ibb.co/7N1kNv7D/Stock-Cake-Teamwork-in-Office-996932-medium.jpg"
-                alt="Perfect Consultancy Services Ranchi Office"
+                alt="Perfect Consultancy Services - Best Tax Consultant Ranchi Office"
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
                 priority
