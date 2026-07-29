@@ -33,6 +33,11 @@ export const metadata: Metadata = {
     'PCS Ranchi',
     'PCS Tax Consultant'
   ],
+  icons: {
+    icon: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
+    shortcut: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
+    apple: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
+  },
   alternates: {
     canonical: '/',
   },
