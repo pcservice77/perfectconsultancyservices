@@ -36,13 +36,18 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg' },
-      { url: '/favicon.ico' },
       { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
       { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
     ],
     apple: [
       { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg', sizes: '180x180', type: 'image/jpeg' },
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'apple-touch-icon',
+        url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
+        sizes: '180x180',
+      },
     ],
   },
   manifest: '/manifest.json',
@@ -131,6 +136,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        {/* Manual Favicon links for maximum search engine compatibility */}
+        <link rel="icon" href="https://i.ibb.co/7Pkj4jM/perfect.jpg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="https://i.ibb.co/7Pkj4jM/perfect.jpg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
