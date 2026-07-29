@@ -33,7 +33,7 @@ const prompt = ai.definePrompt({
   prompt: `Summarize the following tax update article, focusing on the key implications and any relevant deadlines.\n\nArticle Content:\n{{{articleContent}}}`,
 });
 
-const summarizeTaxUpdateFlow = ai.defineFlow(
+const summarizeTaxUpdateFlow = ai.defineFlow<typeof SummarizeTaxUpdateInputSchema, typeof SummarizeTaxUpdateOutputSchema>(
   {
     name: 'summarizeTaxUpdateFlow',
     inputSchema: SummarizeTaxUpdateInputSchema,
