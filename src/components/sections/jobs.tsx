@@ -171,18 +171,18 @@ export default function JobsSection() {
                           <ChevronRight className="ml-2 h-5 w-5" />
                       </Button>
                   </DialogTrigger>
-                  <DialogContent className="max-w-4xl glass border-white/40 p-0 overflow-hidden rounded-[2.5rem] max-h-[95vh]">
-                      <div className="bg-primary p-12 text-white">
+                  <DialogContent className="max-w-4xl glass border-white/40 p-0 overflow-hidden rounded-[1.5rem] sm:rounded-[2.5rem] max-h-[95vh] flex flex-col">
+                      <div className="bg-primary p-6 sm:p-12 text-white shrink-0">
                         <DialogHeader>
-                            <DialogTitle className="text-4xl font-black mb-2">Apply for {job.title}</DialogTitle>
-                            <DialogDescription className="text-white/80 text-lg font-medium">Join PCS. Step into a world of financial excellence.</DialogDescription>
+                            <DialogTitle className="text-2xl sm:text-4xl font-black mb-2">Apply for {job.title}</DialogTitle>
+                            <DialogDescription className="text-white/80 text-base sm:text-lg font-medium">Join PCS. Step into a world of financial excellence.</DialogDescription>
                         </DialogHeader>
                       </div>
                       
-                      <div className="p-12 overflow-y-auto max-h-[calc(95vh-160px)]">
+                      <div className="p-6 sm:p-12 overflow-y-auto flex-1">
                           <Form {...form}>
-                              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                  <div className="grid md:grid-cols-2 gap-8">
+                              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
+                                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                                       <FormField
                                           control={form.control}
                                           name="name"
@@ -206,7 +206,7 @@ export default function JobsSection() {
                                           )}
                                       />
                                   </div>
-                                  <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                                     <FormField
                                         control={form.control}
                                         name="email"
@@ -226,7 +226,7 @@ export default function JobsSection() {
                                                 <FormLabel className="font-bold text-slate-700">Resume Link (Google Drive/Dropbox)</FormLabel>
                                                 <FormControl>
                                                     <div className="flex items-center gap-2">
-                                                        <LinkIcon className="h-5 w-5 text-primary" />
+                                                        <LinkIcon className="h-5 w-5 text-primary shrink-0" />
                                                         <Input placeholder="https://drive.google.com/..." className="h-14 rounded-xl border-slate-200" {...field} />
                                                     </div>
                                                 </FormControl>
@@ -235,7 +235,7 @@ export default function JobsSection() {
                                         )}
                                     />
                                   </div>
-                                  <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                                     <FormField
                                         control={form.control}
                                         name="qualification"
@@ -270,9 +270,9 @@ export default function JobsSection() {
                                           </FormItem>
                                       )}
                                   />
-                                  <DialogFooter className="pt-6 border-t border-slate-100">
-                                      <Button type="submit" className="w-full h-16 rounded-2xl bg-primary text-white font-black text-xl shadow-2xl shadow-primary/20">Submit My Application</Button>
-                                  </DialogFooter>
+                                  <div className="pt-6 border-t border-slate-100">
+                                      <Button type="submit" className="w-full h-16 rounded-2xl bg-primary text-white font-black text-xl shadow-2xl shadow-primary/20 mb-4 sm:mb-0">Submit My Application</Button>
+                                  </div>
                               </form>
                           </Form>
                       </div>

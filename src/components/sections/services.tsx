@@ -154,34 +154,34 @@ export default function ServicesSection() {
                         </CardContent>
                     </Card>
 
-                    <DialogContent className="sm:max-w-2xl glass border-white/40 p-0 overflow-hidden rounded-[2.5rem]">
-                        <div className="relative h-32 bg-primary">
-                          <div className="absolute bottom-0 left-8 translate-y-1/2 h-24 w-24 rounded-3xl glass border-white/60 flex items-center justify-center">
+                    <DialogContent className="sm:max-w-2xl glass border-white/40 p-0 overflow-hidden rounded-[1.5rem] sm:rounded-[2.5rem] max-h-[95vh] flex flex-col">
+                        <div className="relative h-24 sm:h-32 bg-primary shrink-0">
+                          <div className="absolute bottom-0 left-6 sm:left-8 translate-y-1/2 h-20 w-20 sm:h-24 sm:w-24 rounded-2xl sm:rounded-3xl glass border-white/60 flex items-center justify-center">
                             {service.imageUrl ? (
                               <Image src={service.imageUrl} alt={service.title} width={48} height={48} className="object-contain" />
                             ) : (
-                              <Icon className="h-12 w-12 text-primary" />
+                              <Icon className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
                             )}
                           </div>
                         </div>
                         
-                        <div className="p-8 pt-16">
-                          <DialogHeader className="mb-8">
-                              <DialogTitle className="text-3xl font-black text-slate-900 leading-tight">{service.title}</DialogTitle>
-                              <DialogDescription className="text-lg text-slate-600 font-medium">Professional Consultation & Delivery</DialogDescription>
+                        <div className="p-6 sm:p-8 pt-12 sm:pt-16 overflow-y-auto flex-1">
+                          <DialogHeader className="mb-6 sm:mb-8">
+                              <DialogTitle className="text-2xl sm:text-3xl font-black text-slate-900 leading-tight">{service.title}</DialogTitle>
+                              <DialogDescription className="text-base sm:text-lg text-slate-600 font-medium">Professional Consultation & Delivery</DialogDescription>
                           </DialogHeader>
                           
-                          <div className="space-y-8">
+                          <div className="space-y-6 sm:space-y-8">
                               {!showEnquiryForm ? (
                                   <>
-                                      <p className="text-slate-700 whitespace-pre-wrap leading-relaxed text-lg font-medium">
+                                      <p className="text-slate-700 whitespace-pre-wrap leading-relaxed text-base sm:text-lg font-medium">
                                           {service.description}
                                       </p>
                                       <Button 
-                                          className="w-full h-16 rounded-2xl bg-primary text-white hover:bg-primary/90 font-black text-lg shadow-xl shadow-primary/20"
+                                          className="w-full h-14 sm:h-16 rounded-2xl bg-primary text-white hover:bg-primary/90 font-black text-lg shadow-xl shadow-primary/20 mb-4 sm:mb-0"
                                           onClick={() => setShowEnquiryForm(true)}
                                       >
-                                          <MessageSquareQuote className="mr-3 h-6 w-6" />
+                                          <MessageSquareQuote className="mr-3 h-5 w-5 sm:h-6 sm:w-6" />
                                           Start My Service Enquiry
                                       </Button>
                                   </>
@@ -193,7 +193,7 @@ export default function ServicesSection() {
                                       </div>
                                       <Form {...form}>
                                           <form onSubmit={form.handleSubmit(onEnquirySubmit)} className="space-y-4">
-                                              <div className="grid grid-cols-2 gap-4">
+                                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                   <FormField
                                                       control={form.control}
                                                       name="name"
@@ -239,9 +239,9 @@ export default function ServicesSection() {
                                                       </FormItem>
                                                   )}
                                               />
-                                              <div className="flex gap-4 pt-4">
-                                                  <Button type="button" variant="outline" className="h-14 flex-1 rounded-xl" onClick={() => setShowEnquiryForm(false)}>Cancel</Button>
-                                                  <Button type="submit" className="h-14 flex-[2] rounded-xl bg-primary text-white shadow-xl shadow-primary/20">Sumbit Request</Button>
+                                              <div className="flex flex-col sm:flex-row gap-4 pt-4 mb-4 sm:mb-0">
+                                                  <Button type="button" variant="outline" className="h-14 rounded-xl order-2 sm:order-1" onClick={() => setShowEnquiryForm(false)}>Cancel</Button>
+                                                  <Button type="submit" className="h-14 rounded-xl bg-primary text-white shadow-xl shadow-primary/20 order-1 sm:order-2">Submit Request</Button>
                                               </div>
                                           </form>
                                       </Form>
