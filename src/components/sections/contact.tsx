@@ -12,7 +12,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { useToast } from '@/hooks/use-toast';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useFirestore } from '@/firebase';
-import { Mail, Phone, MapPin, ArrowRight, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, ArrowRight, Send, CheckCircle2, Clock } from 'lucide-react';
 
 const contactSchema = z.object({
   name: z.string().min(1, 'Full name is required'),
@@ -80,7 +80,7 @@ export default function ContactSection() {
               </p>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-6">
               <div className="flex gap-6 items-center p-6 glass border-white/80 rounded-3xl transition-all hover:bg-white/90">
                 <div className="h-14 w-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
                   <MapPin className="h-6 w-6" />
@@ -102,12 +102,12 @@ export default function ContactSection() {
               </div>
 
               <div className="flex gap-6 items-center p-6 glass border-white/80 rounded-3xl transition-all hover:bg-white/90">
-                <div className="h-14 w-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-xl shadow-primary/20">
-                  <Mail className="h-6 w-6" />
+                <div className="h-14 w-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white shadow-xl">
+                  <Clock className="h-6 w-6" />
                 </div>
                 <div>
-                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Email Us</p>
-                  <a href="mailto:pcservice.77@gmail.com" className="text-lg font-bold text-slate-800 hover:text-primary transition-colors">pcservice.77@gmail.com</a>
+                  <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">Operational Hours</p>
+                  <p className="text-lg font-bold text-slate-800">Mon - Sat: 10:00 AM - 07:00 PM</p>
                 </div>
               </div>
             </div>

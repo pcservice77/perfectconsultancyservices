@@ -49,7 +49,7 @@ const taxAssistantFlow = ai.defineFlow(
     if (!output) {
       throw new Error('No output generated from AI assistant.');
     }
-    return output;
+    return output as TaxAssistantOutput;
   }
 );
 

@@ -44,7 +44,7 @@ const summarizeTaxUpdateFlow = ai.defineFlow(
     if (!output) {
         throw new Error('Failed to generate summary.');
     }
-    return output;
+    return output as SummarizeTaxUpdateOutput;
   }
 );
 
