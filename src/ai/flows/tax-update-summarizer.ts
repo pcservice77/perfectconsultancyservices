@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview Summarizes tax update articles to provide users with key implications and deadlines.
@@ -27,12 +26,6 @@ const SummarizeTaxUpdateOutputSchema = z.object({
 });
 export type SummarizeTaxUpdateOutput = z.infer<typeof SummarizeTaxUpdateOutputSchema>;
 
-export async function summarizeTaxUpdate(
-  input: SummarizeTaxUpdateInput
-): Promise<SummarizeTaxUpdateOutput> {
-  return summarizeTaxUpdateFlow(input);
-}
-
 const prompt = ai.definePrompt({
   name: 'summarizeTaxUpdatePrompt',
   input: {schema: SummarizeTaxUpdateInputSchema},
@@ -46,7 +39,7 @@ const summarizeTaxUpdateFlow = ai.defineFlow(
     inputSchema: SummarizeTaxUpdateInputSchema,
     outputSchema: SummarizeTaxUpdateOutputSchema,
   },
-  async (input: SummarizeTaxUpdateInput) => {
+  async (input: SummarizeTaxUpdateInput): Promise<SummarizeTaxUpdateOutput> => {
     const {output} = await prompt(input);
     if (!output) {
         throw new Error('Failed to generate summary.');
@@ -54,3 +47,9 @@ const summarizeTaxUpdateFlow = ai.defineFlow(
     return output;
   }
 );
+
+export async function summarizeTaxUpdate(
+  input: SummarizeTaxUpdateInput
+): Promise<SummarizeTaxUpdateOutput> {
+  return summarizeTaxUpdateFlow(input);
+}

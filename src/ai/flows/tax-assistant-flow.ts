@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview An AI Tax Assistant for Perfect Consultancy Services.
@@ -21,10 +20,6 @@ const TaxAssistantOutputSchema = z.object({
   suggestedAction: z.string().optional().describe('A suggested next step, like "Contact a consultant" or "Check GST portal".'),
 });
 export type TaxAssistantOutput = z.infer<typeof TaxAssistantOutputSchema>;
-
-export async function askTaxAssistant(input: TaxAssistantInput): Promise<TaxAssistantOutput> {
-  return taxAssistantFlow(input);
-}
 
 const prompt = ai.definePrompt({
   name: 'taxAssistantPrompt',
@@ -49,7 +44,7 @@ const taxAssistantFlow = ai.defineFlow(
     inputSchema: TaxAssistantInputSchema,
     outputSchema: TaxAssistantOutputSchema,
   },
-  async (input: TaxAssistantInput) => {
+  async (input: TaxAssistantInput): Promise<TaxAssistantOutput> => {
     const {output} = await prompt(input);
     if (!output) {
       throw new Error('No output generated from AI assistant.');
@@ -57,3 +52,7 @@ const taxAssistantFlow = ai.defineFlow(
     return output;
   }
 );
+
+export async function askTaxAssistant(input: TaxAssistantInput): Promise<TaxAssistantOutput> {
+  return taxAssistantFlow(input);
+}
