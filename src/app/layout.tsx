@@ -35,16 +35,16 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
+      { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg', sizes: '16x16', type: 'image/jpeg' },
       { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg', sizes: '32x32', type: 'image/jpeg' },
-      { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg', sizes: '48x48', type: 'image/jpeg' },
       { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg', sizes: '96x96', type: 'image/jpeg' },
-      { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg', sizes: '144x144', type: 'image/jpeg' },
     ],
-    shortcut: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
     apple: [
       { url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg', sizes: '180x180', type: 'image/jpeg' },
     ],
+    shortcut: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
   },
+  manifest: '/manifest.json',
   alternates: {
     canonical: '/',
   },
@@ -130,7 +130,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-        <link rel="shortcut icon" href="https://i.ibb.co/7Pkj4jM/perfect.jpg" type="image/jpeg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
