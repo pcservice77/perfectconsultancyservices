@@ -11,14 +11,14 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#221.2 83.2% 53.3%',
     icons: [
       {
-        src: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
+        src: '/android-chrome-192x192.png',
         sizes: '192x192',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
       {
-        src: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
+        src: '/android-chrome-512x512.png',
         sizes: '512x512',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
     ],
   };
