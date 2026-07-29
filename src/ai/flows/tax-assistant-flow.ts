@@ -38,7 +38,7 @@ Guidelines:
 User Query: {{{query}}}`,
 });
 
-const taxAssistantFlow = ai.defineFlow<typeof TaxAssistantInputSchema, typeof TaxAssistantOutputSchema>(
+const taxAssistantFlow = ai.defineFlow(
   {
     name: 'taxAssistantFlow',
     inputSchema: TaxAssistantInputSchema,

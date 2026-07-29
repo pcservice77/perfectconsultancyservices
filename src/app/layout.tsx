@@ -8,7 +8,6 @@ import TaxAssistantChat from '@/components/tax-assistant-chat';
 import WhatsAppButton from '@/components/whatsapp-button';
 
 export const metadata: Metadata = {
-  // Corrected domain to match your actual domain
   metadataBase: new URL('https://perfectconsultancyservices.in'),
   title: 'Perfect Consultancy Services | Best Tax Consultant in Ranchi & Roshpa Tower',
   description: 'Looking for Perfect Consultancy Services? We are the leading tax consultant in Ranchi located at Roshpa Tower. Expert GST registration, ITR filing, audit, and business compliance. Trusted by 1500+ businesses in Jharkhand.',
@@ -36,10 +35,10 @@ export const metadata: Metadata = {
   ],
   icons: {
     icon: [
-      { url: '/lib/favicon.ico', sizes: 'any' },
+      { url: '/lib/favicon.ico', sizes: '48x48 96x96 144x144 192x192 256x256 512x512', type: 'image/x-icon' },
     ],
     apple: [
-      { url: '/lib/favicon.ico' },
+      { url: '/lib/favicon.ico', sizes: '180x180', type: 'image/x-icon' },
     ],
   },
   manifest: '/manifest.json',
@@ -129,9 +128,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         
-        {/* Main Favicon */}
-        <link rel="icon" href="/lib/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/lib/favicon.ico" />
+        {/* Favicon configuration for search engines */}
+        <link rel="icon" href="/lib/favicon.ico" sizes="48x48 96x96 144x144 192x192 256x256 512x512" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/lib/favicon.ico" sizes="180x180" />
         
         <script
           type="application/ld+json"

@@ -8,6 +8,6 @@ export const ai = genkit({
       apiKey: process.env.GOOGLE_GENAI_API_KEY || process.env.GOOGLE_API_KEY,
     }),
   ],
-  // Using stable string identifier to avoid named export issues and ensure maximum reliability
+  // Using the stable string identifier to avoid import export conflicts
   model: 'googleai/gemini-1.5-flash',
 });
