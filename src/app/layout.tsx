@@ -9,17 +9,39 @@ import WhatsAppButton from '@/components/whatsapp-button';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://perfectconsultancyservices.in'),
-  title: 'Perfect Consultancy Services | Best Tax Consultant in Ranchi | GST & ITR',
-  description: 'Looking for a reliable tax consultant in Ranchi? Perfect Consultancy Services offers expert GST registration, ITR filing, audit, and business compliance. Trusted by 1500+ businesses. Fast, accurate, and professional accounting services.',
-  keywords: ['Tax Consultant in Ranchi', 'GST Registration Ranchi', 'Income Tax Filing Ranchi', 'Perfect Consultancy Services', 'Best Accountant in Ranchi', 'Business Compliance Ranchi', 'ITR filing services Jharkhand'],
+  title: 'Perfect Consultancy Services | Best Tax Consultant in Ranchi & Roshpa Tower',
+  description: 'Looking for Perfect Consultancy Services? We are the leading tax consultant in Ranchi located at Roshpa Tower. Expert GST registration, ITR filing, audit, and business compliance. Trusted by 1500+ businesses in Jharkhand.',
+  keywords: [
+    'Perfect Consultancy Services', 
+    'Perfect Consultancy', 
+    'Tax Consultancy Services in Ranchi', 
+    'Tax Consultant in Roshpa Tower', 
+    'Perfect Tax Consultant', 
+    'Tax Consultant Ranchi', 
+    'GST Registration Ranchi', 
+    'Income Tax Filing Ranchi', 
+    'Best Accountant in Ranchi', 
+    'Business Compliance Ranchi', 
+    'ITR filing services Jharkhand',
+    'Chartered Accountant Ranchi',
+    'Roshpa Tower Ranchi Services'
+  ],
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Perfect Consultancy Services | Best Tax Consultant in Ranchi',
-    description: 'Expert Tax, Accounting & Business Compliance services in Ranchi. Professional, fast, and trusted.',
+    title: 'Perfect Consultancy Services | Ranchi’s Most Trusted Tax Firm',
+    description: 'Expert Tax, Accounting & Business Compliance services in Ranchi. Professional, fast, and trusted at Roshpa Tower.',
     url: 'https://perfectconsultancyservices.in',
     siteName: 'Perfect Consultancy Services',
+    images: [
+      {
+        url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
+        width: 800,
+        height: 600,
+        alt: 'Perfect Consultancy Services Ranchi',
+      },
+    ],
     locale: 'en_IN',
     type: 'website',
   },
@@ -30,12 +52,57 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Perfect Consultancy Services",
+    "alternateName": ["Perfect Consultancy", "Perfect Tax Consultant"],
+    "image": "https://i.ibb.co/7Pkj4jM/perfect.jpg",
+    "@id": "https://perfectconsultancyservices.in",
+    "url": "https://perfectconsultancyservices.in",
+    "telephone": "+918809992225",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Roshpa Tower, 5th Floor",
+      "addressLocality": "Ranchi",
+      "addressRegion": "JH",
+      "postalCode": "834001",
+      "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 23.3707,
+      "longitude": 85.3231
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "10:00",
+      "closes": "19:00"
+    },
+    "sameAs": [
+      "https://www.facebook.com/pcservice77",
+      "https://www.linkedin.com/company/perfect-consultancy-services"
+    ]
+  };
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="font-body antialiased">
         <FirebaseClientProvider>

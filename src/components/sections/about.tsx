@@ -12,10 +12,10 @@ export default function AboutSection() {
           <div className="space-y-12">
             <div className="space-y-6">
               <h2 className="font-headline text-4xl md:text-5xl font-black tracking-tight leading-tight">
-                Crafting Financial <span className="liquid-text">Clarity</span> in the Heart of Ranchi.
+                Perfect Consultancy: Financial <span className="liquid-text">Clarity</span> in Ranchi.
               </h2>
               <p className="text-xl text-slate-300 leading-relaxed font-medium">
-                Perfect Consultancy Services (PCS) isn't just a firm; we are your strategic partners in navigating the complexities of Indian tax and accounting. Located in Ranchi, we blend local insight with global standards.
+                <strong>Perfect Consultancy Services (PCS)</strong> is your strategic partner for tax consultancy in Ranchi. Located centrally at <strong>Roshpa Tower</strong>, we blend local insight with professional excellence to handle GST, ITR, and Audits.
               </p>
             </div>
 
@@ -25,14 +25,14 @@ export default function AboutSection() {
                   <Award className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold">Unmatched Expertise</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">Deep domain knowledge in GST registration, monthly returns, and complex auditing.</p>
+                <p className="text-slate-400 text-sm leading-relaxed">Top-rated tax consultant in Ranchi specializing in GST registration and complex auditing.</p>
               </div>
               <div className="space-y-4 p-6 glass-dark rounded-[2rem]">
                 <div className="h-12 w-12 rounded-2xl bg-accent/20 flex items-center justify-center text-accent">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold">Bulletproof Security</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">Your data and compliance are handled with bank-grade integrity and confidentiality.</p>
+                <p className="text-slate-400 text-sm leading-relaxed">Your data and compliance are handled with bank-grade integrity at our Roshpa Tower office.</p>
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function AboutSection() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-lg font-bold">GST Strategy & Excellence</p>
-                    <p className="text-slate-400 text-sm">Registration, monthly GSTR-1/3B, and GSTR-9 annual audits with precise advisory.</p>
+                    <p className="text-slate-400 text-sm">Comprehensive GST registration and monthly compliance for Ranchi businesses.</p>
                   </div>
                 </div>
 
@@ -58,7 +58,7 @@ export default function AboutSection() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-lg font-bold">Income Tax Optimization</p>
-                    <p className="text-slate-400 text-sm">Advanced tax planning, accurate ITR filing, and expert representation in assessments.</p>
+                    <p className="text-slate-400 text-sm">Professional ITR filing and advanced tax planning from the heart of Ranchi.</p>
                   </div>
                 </div>
 
@@ -68,7 +68,7 @@ export default function AboutSection() {
                   </div>
                   <div className="space-y-2">
                     <p className="text-lg font-bold">Corporate Compliance</p>
-                    <p className="text-slate-400 text-sm">Full lifecycle support for businesses, from incorporation to ongoing regulatory health checks.</p>
+                    <p className="text-slate-400 text-sm">Full regulatory lifecycle support at Roshpa Tower office.</p>
                   </div>
                 </div>
               </div>
@@ -77,11 +77,11 @@ export default function AboutSection() {
                 <div className="flex -space-x-4">
                   {[1,2,3,4].map(i => (
                     <div key={i} className="h-12 w-12 rounded-full border-4 border-slate-900 bg-slate-800 flex items-center justify-center font-bold text-xs">
-                      {i === 4 ? '+500' : 'U'}
+                      {i === 4 ? '+1500' : 'U'}
                     </div>
                   ))}
                 </div>
-                <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Successful Projects</p>
+                <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Happy Ranchi Clients</p>
               </div>
             </div>
           </div>

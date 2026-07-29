@@ -14,7 +14,7 @@ export default function Footer() {
               <div className="p-1 bg-primary rounded-xl overflow-hidden">
                 <Image 
                   src="https://i.ibb.co/7Pkj4jM/perfect.jpg" 
-                  alt="PCS Logo" 
+                  alt="Perfect Consultancy Services Logo" 
                   width={32} 
                   height={32} 
                   className="rounded-sm object-cover"
@@ -23,7 +23,7 @@ export default function Footer() {
               <span className="text-primary uppercase">Perfect Consultancy</span>
             </Link>
             <p className="text-lg text-slate-500 font-medium leading-relaxed">
-              Redefining financial excellence through precision and professional integrity.
+              Perfect Consultancy Services: Redefining financial excellence through precision and professional integrity in Ranchi.
             </p>
             <div className="flex gap-4">
               <Button variant="ghost" size="icon" className="rounded-xl glass hover:bg-primary hover:text-white transition-all"><Twitter className="h-5 w-5" /></Button>
@@ -55,7 +55,7 @@ export default function Footer() {
 
           <div className="lg:col-span-2 space-y-8">
             <h3 className="font-black text-slate-900 uppercase tracking-widest text-xs flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary" /> Locate Excellence
+                <MapPin className="h-4 w-4 text-primary" /> Locate Excellence in Ranchi
             </h3>
             <div className="relative h-[300px] w-full overflow-hidden rounded-[2.5rem] glass border-white shadow-2xl group">
               <iframe 
@@ -65,7 +65,7 @@ export default function Footer() {
                 style={{ border: 0 }} 
                 allowFullScreen={true} 
                 loading="lazy" 
-                title="Office Location"
+                title="Perfect Consultancy Roshpa Tower Office Location"
                 className="grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
               ></iframe>
               <div className="absolute inset-0 bg-primary/10 pointer-events-none group-hover:bg-transparent transition-all duration-700" />
@@ -73,7 +73,7 @@ export default function Footer() {
                  <Button asChild className="w-full h-14 bg-slate-900/90 backdrop-blur text-white rounded-2xl shadow-xl hover:bg-primary border-white/20 transition-all">
                     <a href="https://maps.app.goo.gl/hzE9hHufohWSZtSq8" target="_blank" rel="noopener noreferrer">
                         <MapPin className="h-4 w-4 mr-2" />
-                        Get Directions to Roshpa Tower
+                        Visit us at Roshpa Tower, Ranchi
                     </a>
                  </Button>
               </div>
@@ -84,7 +84,7 @@ export default function Footer() {
         <div className="mt-24 pt-12 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6">
           <ClientOnly>
             <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-              &copy; {new Date().getFullYear()} PERFECT CONSULTANCY SERVICES.
+              &copy; {new Date().getFullYear()} PERFECT CONSULTANCY SERVICES RANCHI.
             </p>
           </ClientOnly>
           <div className="flex gap-8 text-xs font-black text-slate-400 uppercase tracking-widest">

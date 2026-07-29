@@ -15,15 +15,15 @@ export default function HeroSection() {
           <div className="space-y-8 text-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-white/60 text-primary font-bold text-sm">
               <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
-              Trusted By 1500+ Businesses In Ranchi
+              Perfect Consultancy: Trusted By 1500+ Businesses
             </div>
             
             <h1 className="font-headline text-5xl md:text-7xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Perfect Consultancy: Best <span className="liquid-text">Tax Consultant in Ranchi</span>.
+              Perfect Consultancy: Best <span className="liquid-text">Tax Consultant in Ranchi</span> at Roshpa Tower.
             </h1>
             
             <p className="text-xl text-slate-600 max-w-xl leading-relaxed">
-              Experience a new standard of tax, accounting, and business compliance. Seamlessly professional, modernly efficient, and Ranchi's most trusted firm for your financial growth.
+              Searching for <strong>Perfect Consultancy Services</strong>? We provide premium tax, accounting, and business compliance solutions. Experience Ranchi's most efficient firm for financial growth.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -34,7 +34,7 @@ export default function HeroSection() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="h-16 px-8 rounded-2xl text-lg font-bold glass border-white/80 hover:bg-white/80 transition-all">
-                <Link href="#contact">Consult with Experts</Link>
+                <Link href="#contact">Get in Touch</Link>
               </Button>
             </div>
 
