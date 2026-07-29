@@ -52,9 +52,9 @@ export const metadata: Metadata = {
     siteName: 'Perfect Consultancy Services',
     images: [
       {
-        url: 'https://i.ibb.co/7Pkj4jM/perfect.jpg',
-        width: 800,
-        height: 600,
+        url: '/lib/favicon.ico',
+        width: 512,
+        height: 512,
         alt: 'Perfect Consultancy Services Ranchi',
       },
     ],
@@ -80,7 +80,7 @@ export default function RootLayout({
       "PCS Tax Services",
       "Perfect Accounting Ranchi"
     ],
-    "image": "https://i.ibb.co/7Pkj4jM/perfect.jpg",
+    "image": "/lib/favicon.ico",
     "@id": "https://perfectconsultancyservices.in",
     "url": "https://perfectconsultancyservices.in",
     "telephone": "+918809992225",
@@ -127,8 +127,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        
+        {/* Main Favicon for Google Search & Modern Browsers */}
         <link rel="icon" type="image/x-icon" href="/lib/favicon.ico" sizes="any" />
+
+        {/* Apple / iOS Home Screen Icon */}
         <link rel="apple-touch-icon" href="/lib/favicon.ico" />
+        
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
