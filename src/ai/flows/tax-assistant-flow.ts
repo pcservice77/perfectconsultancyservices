@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI Tax Assistant for Perfect Consultancy Services.
@@ -27,7 +28,6 @@ export async function askTaxAssistant(input: TaxAssistantInput): Promise<TaxAssi
 
 const prompt = ai.definePrompt({
   name: 'taxAssistantPrompt',
-  model: 'googleai/gemini-2.0-flash',
   input: {schema: TaxAssistantInputSchema},
   output: {schema: TaxAssistantOutputSchema},
   prompt: `You are the "PCS AI Assistant," an expert virtual consultant for "Perfect Consultancy Services" in Ranchi, India.
@@ -49,7 +49,7 @@ const taxAssistantFlow = ai.defineFlow(
     inputSchema: TaxAssistantInputSchema,
     outputSchema: TaxAssistantOutputSchema,
   },
-  async input => {
+  async (input: TaxAssistantInput) => {
     const {output} = await prompt(input);
     if (!output) {
       throw new Error('No output generated from AI assistant.');

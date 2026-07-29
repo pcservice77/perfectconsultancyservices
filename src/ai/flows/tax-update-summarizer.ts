@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview Summarizes tax update articles to provide users with key implications and deadlines.
@@ -34,7 +35,6 @@ export async function summarizeTaxUpdate(
 
 const prompt = ai.definePrompt({
   name: 'summarizeTaxUpdatePrompt',
-  model: 'googleai/gemini-2.0-flash',
   input: {schema: SummarizeTaxUpdateInputSchema},
   output: {schema: SummarizeTaxUpdateOutputSchema},
   prompt: `Summarize the following tax update article, focusing on the key implications and any relevant deadlines.\n\nArticle Content:\n{{{articleContent}}}`,
@@ -46,7 +46,7 @@ const summarizeTaxUpdateFlow = ai.defineFlow(
     inputSchema: SummarizeTaxUpdateInputSchema,
     outputSchema: SummarizeTaxUpdateOutputSchema,
   },
-  async input => {
+  async (input: SummarizeTaxUpdateInput) => {
     const {output} = await prompt(input);
     if (!output) {
         throw new Error('Failed to generate summary.');
